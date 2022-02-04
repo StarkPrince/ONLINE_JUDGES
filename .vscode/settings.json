@@ -1,0 +1,14 @@
+{
+  "clockify.tracking.projectId": "5fbf4509fa7d80496f1a5648",
+  "files.associations": {
+    "*.ejs": "html",
+    "xstring": "cpp",
+    "cmath": "cpp",
+    "vector": "cpp",
+    "iostream": "cpp",
+    "initializer_list": "cpp",
+    "xutility": "cpp",
+    "xtree": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
+}
