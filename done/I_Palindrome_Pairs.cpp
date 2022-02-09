@@ -55,15 +55,15 @@ typedef long long ll;
 
 ///////////////////////////////////////////////////
 
-ll binpow(ll a, ll b, ll m)
+ll binpow(ll a, ll b)
 {
-    a %= m;
+    a %= MOD;
     ll res = 1;
     while (b > 0)
     {
         if (b & 1)
-            res = res * a % m;
-        a = a * a % m;
+            res = res * a % MOD;
+        a = a * a % MOD;
         b >>= 1;
     }
     return res;
@@ -71,16 +71,34 @@ ll binpow(ll a, ll b, ll m)
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    print(binpow(n, k, MOD));
+    map<ll, ll> mp;
+    ll n;
+    cin >> n;
+    ll ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        string s;
+        cin >> s;
+        ll mask = 0;
+        for (char c : s)
+            mask ^= (1 << (c - 'a'));
+        ans += mp[mask];
+        for (int i = 0; i < 26; i++)
+        {
+            mask ^= (1 << i);
+            ans += mp[mask];
+            mask ^= (1 << i);
+        }
+        mp[mask]++;
+    }
+    print(ans);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

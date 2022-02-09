@@ -1,3 +1,6 @@
+from cmath import log
+
+
 for _ in range(int(input())):
     n, x, y = [int(i) for i in input().split()]
     a = [int(i) for i in input().split()]
