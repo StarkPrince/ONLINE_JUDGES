@@ -2,7 +2,7 @@ a = input()
 
 
 def rm1(a, l, r, d):
-    print(len(d))
+    # print(len(d))
     if l == r:
         return 0
     rs = str(l) + "|" + str(r)
