@@ -9,7 +9,8 @@
     "initializer_list": "cpp",
     "xutility": "cpp",
     "xtree": "cpp",
-    "map": "cpp"
+    "map": "cpp",
+    "queue": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }

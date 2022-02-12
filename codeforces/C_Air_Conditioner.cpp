@@ -1,4 +1,9 @@
-
+// https://codeforces.com/contest/1304/problem/C
+// Approach: to declare low and high temprature as the initial temprature
+// and then for every element in the array, we check if the temprature is
+// take the range of the temprature that can be achieved by the element
+// in that specific time interval and then updating lo as
+// Time Complexity: O(nlog(n))
 
 #include <iostream>
 #include <vector>
@@ -71,48 +76,49 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-int min_arr_idx(vector<int> a, vector<int> b, int index)
-{
-    int mn = inf;
-    for (int i = index; i < a.size(); i++)
-    {
-        mn = min(mn, b[i] / a[i]);
-    }
-    return mn;
-}
-
-int max_powder(vector<int> a, vector<int> b, int index, int currmin, int rempower)
-{
-    int n = a.size();
-    int m = b.size();
-    if (index == n)
-        return currmin;
-    if (rempower == 0)
-        return min(currmin, min_arr_idx(a, b, index));
-
-    int mn = inf;
-    mn = min(mn, b[index] / a[index]);
-    for (int i = b[index] % a[index]; i <= rempower; i += a[index])
-    {
-        mn = min(mn, max_powder(a, b, index + 1, min(currmin, i), rempower - i));
-    }
-}
-
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<int> a(n), b(n);
-    cinv(a, n);
-    cinv(b, n);
-    vector<vector<int>> dp(n + 1, vector<int>(k + 1));
+    ll n, m;
+    cin >> n >> m;
+    vector<vector<ll>> td;
+    for (int i = 0; i < n; i++)
+    {
+        vector<ll> temp;
+        for (int j = 0; j < 3; j++)
+        {
+            ll t;
+            cin >> t;
+            temp.push_back(t);
+        }
+        td.push_back(temp);
+    }
+    sort(all(td));
+    ll lo = m, hi = m;
+    ll time = 0;
+    bool bl = true;
+    for (int i = 0; i < n; i++)
+    {
+        ll dist = td[i][0] - time;
+        time += dist;
+        lo = max(td[i][1], lo - dist);
+        hi = min(td[i][2], hi + dist);
+        if (lo > hi)
+        {
+            bl = false;
+            break;
+        }
+    }
+    if (bl)
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

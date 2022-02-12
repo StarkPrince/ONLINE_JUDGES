@@ -1,4 +1,16 @@
-
+// https://codeforces.com/contest/1278/problem/B
+// Approach quite simple
+// a,b can be changed to a+l,b+m
+// 1. a+l = b+m
+//    l = b+m - a
+// 2. a+b+n*(n+1)/2 = a+b+l+m
+//    n*(n+1)/2 = l+m
+// putting the value of l,
+//    n*(n+1)/2 = b+m-a+m
+//    n*(n+1)/2 -(b-a) = 2*m
+//  all we have to seek is a value of n for which l and m are non-negative integers
+// thus, we have to check for only two conditions, in n
+//   1. (n*(n+1)/2 -(b-a)) %2 == 0 and n*(n+1)/2 >= (b-a)
 
 #include <iostream>
 #include <vector>
@@ -71,48 +83,25 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-int min_arr_idx(vector<int> a, vector<int> b, int index)
-{
-    int mn = inf;
-    for (int i = index; i < a.size(); i++)
-    {
-        mn = min(mn, b[i] / a[i]);
-    }
-    return mn;
-}
-
-int max_powder(vector<int> a, vector<int> b, int index, int currmin, int rempower)
-{
-    int n = a.size();
-    int m = b.size();
-    if (index == n)
-        return currmin;
-    if (rempower == 0)
-        return min(currmin, min_arr_idx(a, b, index));
-
-    int mn = inf;
-    mn = min(mn, b[index] / a[index]);
-    for (int i = b[index] % a[index]; i <= rempower; i += a[index])
-    {
-        mn = min(mn, max_powder(a, b, index + 1, min(currmin, i), rempower - i));
-    }
-}
-
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<int> a(n), b(n);
-    cinv(a, n);
-    cinv(b, n);
-    vector<vector<int>> dp(n + 1, vector<int>(k + 1));
+    ll a, b, diff, n = 0;
+    cin >> a >> b;
+    diff = abs(a - b);
+    for (; n < 100005; n++)
+    {
+        ll tp = n * (n + 1) / 2;
+        if ((tp - diff) % 2 == 0 && (tp - diff) >= 0)
+            break;
+    }
+    print(n);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

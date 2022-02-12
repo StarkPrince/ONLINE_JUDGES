@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -71,48 +69,43 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-int min_arr_idx(vector<int> a, vector<int> b, int index)
-{
-    int mn = inf;
-    for (int i = index; i < a.size(); i++)
-    {
-        mn = min(mn, b[i] / a[i]);
-    }
-    return mn;
-}
-
-int max_powder(vector<int> a, vector<int> b, int index, int currmin, int rempower)
-{
-    int n = a.size();
-    int m = b.size();
-    if (index == n)
-        return currmin;
-    if (rempower == 0)
-        return min(currmin, min_arr_idx(a, b, index));
-
-    int mn = inf;
-    mn = min(mn, b[index] / a[index]);
-    for (int i = b[index] % a[index]; i <= rempower; i += a[index])
-    {
-        mn = min(mn, max_powder(a, b, index + 1, min(currmin, i), rempower - i));
-    }
-}
-
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<int> a(n), b(n);
-    cinv(a, n);
-    cinv(b, n);
-    vector<vector<int>> dp(n + 1, vector<int>(k + 1));
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    ll ones = 0, zeros = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == '1')
+            ones++;
+        else
+            zeros++;
+    }
+    if (n % 2 == 0)
+    {
+        if (ones % 2 == 0)
+            print("YES");
+        else if (ones == zeros)
+            print("YES");
+        else
+            print("NO");
+    }
+    else
+    {
+        if (ones % 2 == 1 || zeros % 2 == 1)
+            print("YES");
+        else
+            print("NO");
+    }
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();
