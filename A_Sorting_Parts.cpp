@@ -1,6 +1,8 @@
-
-
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -69,31 +71,17 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    string s;
-    cin >> s;
-    ll crsum = 0, ans = 0;
-    set<ll> st;
-    st.insert(0);
-    for (int i = 0; i < s.size(); i++)
-    {
-        crsum += s[i] - '0';
-        if ((s[i] - '0') % 3 == 0 || crsum % 3 == 0 || st.find(crsum % 3) != st.end())
-        {
-            ans++;
-            crsum = 0;
-            st.clear();
-        }
-        else
-            st.insert(crsum % 3);
-    }
-    print(ans);
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    cinv(v, n);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();
