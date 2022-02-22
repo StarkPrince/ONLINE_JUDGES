@@ -1,8 +1,12 @@
+// https://atcoder.jp/contests/abc240/tasks/abc240_d
+// use a sum to count the no of balls at present and a stack to check the running count of same coloured balls if the ball is different then refresh the count to 1 and push the ball into the new stack other wise if the count is equal to ball number pop it out and for each iteration print the count of total balls
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <stack>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -71,17 +75,42 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
+
+    ll n, ctr = 1;
     cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
+    vector<ll> balls(n);
+    cinv(balls, n);
+    queue<ll> qu;
+    stack<pair<ll, ll>> nst;
+    nqu.push({-1, 0});
+    for (auto ball : balls)
+    {
+        qu.push(ball);
+        if (ball == nst.top().first)
+        {
+            ctr = nst.top().second + 1;
+            nst.top().second += 1;
+        }
+        else
+        {
+            ctr = 1;
+            nst.push({ball, ctr});
+        }
+        if (ctr == ball)
+        {
+            for (int i = 0; i < ball; i++)
+                qu.pop();
+            nst.pop();
+        }
+        print(len(qu));
+    }
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

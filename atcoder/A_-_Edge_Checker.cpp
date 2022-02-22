@@ -1,4 +1,6 @@
-
+// https://atcoder.jp/contests/abc240/tasks/abc240_a
+// solution pretty simple :
+// check if 1 and 10 are connected or b == a+1
 
 #include <iostream>
 #include <vector>
@@ -71,41 +73,20 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-int min_arr_idx(vector<int> a, vector<int> b, int index)
-{
-    int mn = inf;
-    for (int i = index; i < a.size(); i++)
-    {
-        mn = min(mn, b[i] / a[i]);
-    }
-    return mn;
-}
-
-int max_powder(vector<int> a, vector<int> b, int index, int currmin, int rempower)
-{
-    int n = a.size();
-    int m = b.size();
-    if (index == n)
-        return currmin;
-    if (rempower == 0)
-        return min(currmin, min_arr_idx(a, b, index));
-
-    int mn = inf;
-    mn = min(mn, b[index] / a[index]);
-    for (int i = b[index] % a[index]; i <= rempower; i += a[index])
-    {
-        mn = min(mn, max_powder(a, b, index + 1, min(currmin, i), rempower - i));
-    }
-}
-
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<int> a(n), b(n);
-    cinv(a, n);
-    cinv(b, n);
-    vector<vector<int>> dp(n + 1, vector<int>(k + 1));
+    int a, b;
+    cin >> a >> b;
+    if ((a == 1 && b == 10) || b == a + 1)
+    {
+        cout << "Yes" << endl;
+        return;
+    }
+    else
+    {
+        cout << "No" << endl;
+        return;
+    }
 }
 
 int32_t main()

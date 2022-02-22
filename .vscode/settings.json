@@ -10,7 +10,8 @@
     "xutility": "cpp",
     "xtree": "cpp",
     "map": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "deque": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8"
