@@ -1,0 +1,1 @@
+{"name":"Local: String_Reverse","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\String_Reverse.py","tests":[{"id":1645631587832,"input":"2\nabdeba\ncodechef","output":"3\n7"},{"id":1645631833402,"input":"1\nabcabcefcba","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\String_Reverse.py","group":"local","local":true}
