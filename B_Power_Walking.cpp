@@ -1,10 +1,9 @@
-// https://www.codechef.com/COOK138B/problems/PREFPERM
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <set>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -73,15 +72,17 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<ll> a(k);
-    cinv(a, k);
-    for (int i = a[0]; i > 0; i--)
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    cinv(a, n);
+    set<ll> s;
+    for (auto i : a)
+        s.insert(i);
+    for (int i = 1; i <= s.size(); i++)
+        cout << s.size() << ' ';
+    for (int i = s.size() + 1; i <= n; i++)
         cout << i << ' ';
-    for (int i = 1; i < k; i++)
-        for (int j = a[i]; j > a[i - 1]; j--)
-            cout << j << ' ';
     cout << endl;
 }
 
