@@ -1,4 +1,6 @@
-from collections import deque
+# https://codeforces.com/contest/1642/problem/C
+
+# maintain a dict and for each element, reduce the number of its complements if there are more than the value of the element, else remove all of them and add the answer the required number of extra elements
 
 for _ in range(int(input())):
     n, x = [int(x) for x in input().split()]

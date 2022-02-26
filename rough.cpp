@@ -71,23 +71,78 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll x1, x2, x3, y1, y2, y3;
-    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
-    float m1 = inf, m2 = inf, m3 = inf;
-    if (y2 == y1 && y2 > 0 && y3 < y2)
-        cout << abs(x2 - x1) << endl;
-    else if (y2 == y1 && y2 < 0 && y3 > y2)
-        cout << abs(x2 - x1) << endl;
-    else if (y3 == y2 && y3 > 0 && y1 < y3)
-        cout << abs(x3 - x2) << endl;
-    else if (y3 == y2 && y3 < 0 && y1 > y3)
-        cout << abs(x3 - x2) << endl;
-    else if (y1 == y3 && y1 > 0 && y2 < y1)
-        cout << abs(x1 - x3) << endl;
-    else if (y1 == y3 && y1 < 0 && y2 > y1)
-        cout << abs(x1 - x3) << endl;
-    else
-        cout << 0 << endl;
+    ll n;
+    cin >> n;
+    vector<vector<char>> s(n, vector<char>(n));
+    for (int i = 0; i < n; i++)
+    {
+        vector<char> v(n);
+        cinv(v, n);
+        s[i] = v;
+    }
+    ll ans = 0;
+
+    // check horizontallly
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[j][i + k] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    // check vertically
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    // check top left to bottom right
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n - 5; j++)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j + k] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    // check top right to bottom left
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = n - 1; j >= 5; j--)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j - k] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    cout << (ans == 0) ? "Yes" : "No";
 }
 
 int32_t main()

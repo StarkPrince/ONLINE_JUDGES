@@ -11,7 +11,8 @@
     "xtree": "cpp",
     "map": "cpp",
     "queue": "cpp",
-    "deque": "cpp"
+    "deque": "cpp",
+    "algorithm": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8"

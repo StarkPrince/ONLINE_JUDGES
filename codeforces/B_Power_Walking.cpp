@@ -1,8 +1,13 @@
+// https://codeforces.com/contest/1642/problem/B
+
+// easy question just return the len of set up to len of set and then increase it by 1 in each iteration
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <set>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -71,13 +76,18 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
+    ll n;
+    cin >> n;
     vector<ll> a(n);
     cinv(a, n);
-    map<ll, ll> m;
+    set<ll> s;
     for (auto i : a)
-        m[i]++;
+        s.insert(i);
+    for (int i = 1; i <= s.size(); i++)
+        cout << s.size() << ' ';
+    for (int i = s.size() + 1; i <= n; i++)
+        cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main()

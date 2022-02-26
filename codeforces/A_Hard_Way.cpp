@@ -1,9 +1,13 @@
+// https://codeforces.com/contest/1642/problem/A
+
+// extremely simple but problem language was tricky
+// just return the length of the side of the triangle whose slope is 0 and is not facing to x axis directly, like there is a vertex between the line and other two sides
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cmath>
 #include <map>
-#include <set>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -72,18 +76,23 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    cinv(a, n);
-    set<ll> s;
-    for (auto i : a)
-        s.insert(i);
-    for (int i = 1; i <= s.size(); i++)
-        cout << s.size() << ' ';
-    for (int i = s.size() + 1; i <= n; i++)
-        cout << i << ' ';
-    cout << endl;
+    ll x1, x2, x3, y1, y2, y3;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+    float m1 = inf, m2 = inf, m3 = inf;
+    if (y2 == y1 && y2 > 0 && y3 < y2)
+        cout << abs(x2 - x1) << endl;
+    else if (y2 == y1 && y2 < 0 && y3 > y2)
+        cout << abs(x2 - x1) << endl;
+    else if (y3 == y2 && y3 > 0 && y1 < y3)
+        cout << abs(x3 - x2) << endl;
+    else if (y3 == y2 && y3 < 0 && y1 > y3)
+        cout << abs(x3 - x2) << endl;
+    else if (y1 == y3 && y1 > 0 && y2 < y1)
+        cout << abs(x1 - x3) << endl;
+    else if (y1 == y3 && y1 < 0 && y2 > y1)
+        cout << abs(x1 - x3) << endl;
+    else
+        cout << 0 << endl;
 }
 
 int32_t main()
