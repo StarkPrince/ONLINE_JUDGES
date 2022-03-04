@@ -1,6 +1,3 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -68,66 +65,89 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+struct Node
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+public:
+    int val;
+    Node *next;
+    Node(int v) : val(v), next(NULL) {}
+};
+
+// construct a linked list class
+class LinkedList
+{
+public:
+    Node *head;
+    Node *tail;
+    LinkedList() : head(NULL), tail(NULL) {}
+    void add(int v)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
+        Node *temp = new Node(v);
+        if (head == NULL)
         {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            head = temp;
+            tail = temp;
         }
         else
         {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            tail->next = temp;
+            tail = temp;
         }
+    }
+    void print_ll()
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            cout << temp->val << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+void solve()
+{
+    int n, temp;
+    bool bl = true;
+
+    cin >> n;
+    vector<int> A(n), B(n);
+    cinv(A, n);
+    cinv(B, n);
+
+    for (int i = 0; i < n - 2 && bl; i++)
+    {
+        if (A[i] != B[i])
+        {
+            if (A[i] == B[i + 2])
+            {
+                temp = A[i + 2];
+                A[i + 2] = A[i + 1];
+                A[i + 1] = A[i];
+                A[i] = temp;
+            }
+            else if (A[i] == B[i + 1])
+            {
+                temp = A[i];
+                A[i] = A[i + 1];
+                A[i + 1] = A[i + 2];
+                A[i + 2] = temp;
+            }
+            else
+            {
+                bl = false;
+            }
+        }
+        pv(A);
+    }
+    if (bl)
+    {
+        print("Yes");
+    }
+    else
+    {
+        print("No");
     }
 }
 

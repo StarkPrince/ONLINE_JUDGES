@@ -1,5 +1,9 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
+// https://codeforces.com/problemset/problem/1538/F
+// nice question :D
+// get the difference and for every digit in the difference if the adding the digit will cause disruption in the modulo of the number we will increase the count by 1
+
+//  moreover, the keep dividing diff by multiples of 10 and adding them to the count
+// since they are the count of number of times the next significant digit will be change
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -70,72 +74,24 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+    ll n, m, diff, ans = 0, ctr = 1;
+    cin >> n >> m;
+    diff = m - n;
+    while (ctr <= m)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
-        {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
+        ans += diff / ctr;
+        ctr *= 10;
+        if (diff % ctr + n % ctr >= ctr)
+            ans++;
     }
+    print(ans);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

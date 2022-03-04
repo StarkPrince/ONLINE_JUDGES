@@ -1,0 +1,1 @@
+{"name":"Local: Broken_Dreams","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\Broken_Dreams.py","tests":[{"id":1646234943347,"input":"3\n6 1\nwhizzy\n14 2\naaacdecdebacde\n4 3\ndbca","output":"whizzy\naaaaccdecdebde\nabcd"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\Broken_Dreams.py","group":"local","local":true}

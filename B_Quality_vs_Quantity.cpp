@@ -1,6 +1,3 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -70,72 +67,37 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    cinv(v, n);
+    sort(all(v));
+    vector<ll> pref(n);
+    pref[0] = v[0];
+    for (int i = 1; i < n; i++)
+        pref[i] = pref[i - 1] + v[i];
+    bool bl = false;
+    for (ll ctr = 1; ctr < n / 2 + 1; ctr++)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
+        ll left = pref[ctr];
+        ll right = pref[n - 1] - pref[n - ctr - 1];
+        if (left < right)
         {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            bl = true;
+            break;
         }
     }
+    if (bl)
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

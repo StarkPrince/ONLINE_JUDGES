@@ -1,7 +1,12 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
+// https://atcoder.jp/contests/abc241/tasks/abc241_c
+//  easy peasy question to do with, just iterate horizontally, vertically, top left to bottom right, top right to bottom left
+//  and check if the number of #s is greater than equal to 4 in a segment of 6 if yes, return Yes else after iterating through all the segments return No
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -70,65 +75,82 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+    ll n;
+    cin >> n;
+    vector<vector<char>> s(n, vector<char>(n));
+    for (int i = 0; i < n; i++)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
+        vector<char> v(n);
+        cinv(v, n);
+        s[i] = v;
+    }
+    ll ans = 0;
+
+    // check horizontallly
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n; j++)
         {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
             {
-                print(-1);
-                continue;
+                if (s[j][i + k] == '#')
+                    temp++;
             }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            if (temp >= 4)
+                ans++;
         }
     }
+    // check vertically
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n && ans == 0; j++)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    // check top left to bottom right
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = 0; j < n - 5 && ans == 0; j++)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j + k] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+    // check top right to bottom left
+    for (int i = 0; i < n - 5 && ans == 0; i++)
+    {
+        for (int j = n - 1; j >= 5 && ans == 0; j--)
+        {
+            int temp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                if (s[i + k][j - k] == '#')
+                    temp++;
+            }
+            if (temp >= 4)
+                ans++;
+        }
+    }
+
+    if (ans == 0)
+        print("No");
+    else
+        print("Yes");
 }
 
 int32_t main()

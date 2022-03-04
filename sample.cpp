@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -35,8 +31,11 @@ using namespace std;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
+#define MOD_ 998244353
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
+#define MAX(v) *max_element(v.begin(), v.end())
+#define MIN(v) *min_element(v.begin(), v.end())
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
@@ -54,6 +53,10 @@ typedef long long ll;
 #define len(p) (ll) p.size()
 
 ///////////////////////////////////////////////////
+ll lcm(ll x, ll y)
+{
+    return ((x * y) / __gcd(x, y));
+}
 
 ll binpow(ll a, ll b, ll m = 1e18)
 {
@@ -71,78 +74,6 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<vector<char>> s(n, vector<char>(n));
-    for (int i = 0; i < n; i++)
-    {
-        vector<char> v(n);
-        cinv(v, n);
-        s[i] = v;
-    }
-    ll ans = 0;
-
-    // check horizontallly
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[j][i + k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-    // check vertically
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-    // check top left to bottom right
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = 0; j < n - 5; j++)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j + k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-    // check top right to bottom left
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = n - 1; j >= 5; j--)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j - k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-    cout << (ans == 0) ? "Yes" : "No";
 }
 
 int32_t main()

@@ -1,6 +1,3 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -68,74 +65,43 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+vector<ll> coins = {1, 2, 4, 6, 8, 16, 24, 32, 64, 120, 128, 256, 512, 720, 1024, 2048, 4096, 5040, 8192, 16384, 32768, 40320, 65536, 131072, 262144, 362880, 524288, 1048576, 2097152, 3628800, 4194304, 8388608, 16777216, 33554432, 39916800, 67108864, 134217728, 268435456, 479001600, 536870912, 1073741824, 2147483648, 4294967296, 6227020800, 8589934592, 17179869184, 34359738368, 68719476736, 87178291200, 137438953472, 274877906944, 549755813888};
+
+ll coinChange(ll amount, vector<ll> &coins, ll idx, unordered_map<string, ll> &d)
+{
+    if (amount == 0)
+        return 0;
+    if (amount < 0)
+        return 10e13;
+    if (idx >= coins.size())
+        return 10e13;
+    string st = to_string(amount) + " " + to_string(coins[idx]);
+    if (d.find(st) == d.end())
+    {
+        d[st] = min(1 + coinChange(amount - coins[idx], coins,
+                                   idx + 1, d),
+                    coinChange(amount, coins, idx + 1, d));
+    }
+    return d[st];
+}
+
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
-    {
-        int t;
-        cin >> t;
-        if (t == 1)
-        {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-    }
+    ll n;
+    cin >> n;
+    unordered_map<string, ll> d;
+    ll ans = coinChange(n, coins, 0, d);
+    if (ans == 10e13)
+        cout << -1 << endl;
+    else
+        cout << ans << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

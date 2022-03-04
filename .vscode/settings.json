@@ -12,8 +12,13 @@
     "map": "cpp",
     "queue": "cpp",
     "deque": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "utility": "cpp",
+    "stack": "cpp",
+    "set": "cpp",
+    "limits": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
-  "python.formatting.provider": "autopep8"
+  "python.formatting.provider": "autopep8",
+  "clockify.tracking.workspaceId": "5fbf3ad85cfedf162875e305"
 }

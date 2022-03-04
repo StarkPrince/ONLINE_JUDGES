@@ -1,5 +1,7 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
+// https://www.codechef.com/START28B/problems/PERMXORITY
+// easy implemenation since we know for 2 it isnt possible we will return -1
+// for odd cases the difference betwen consecutive numbers will be the same and thus their xor will be 0
+// for even cases 4312 is a very good sequence whose xor is 0 and length is 4 so can prepend number above this in decreasing order like for 8: 87654312
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -70,64 +72,23 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+    ll n;
+    cin >> n;
+    if (n % 2 == 1)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
-        {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
+        for (int i = n; i >= 1; i--)
+            cout << i << " ";
+        cout << endl;
+    }
+    else if (n == 2)
+    {
+        print(-1);
+    }
+    else
+    {
+        for (int i = n; i >= 4; i--)
+            cout << i << " ";
+        cout << "1 3 2" << endl;
     }
 }
 
@@ -135,7 +96,7 @@ int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

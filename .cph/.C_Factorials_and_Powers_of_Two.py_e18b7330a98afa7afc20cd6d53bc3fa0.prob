@@ -1,0 +1,1 @@
+{"name":"Local: C_Factorials_and_Powers_of_Two","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\C_Factorials_and_Powers_of_Two.py","tests":[{"id":1646410813334,"input":"4\n7\n11\n240\n17179869184","output":"2\n3\n4\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\C_Factorials_and_Powers_of_Two.py","group":"local","local":true}

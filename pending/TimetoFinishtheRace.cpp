@@ -1,6 +1,3 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -68,67 +65,49 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+int minTimeToFinish(priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq, int changeTime, int numLaps)
+{
+    if (numLaps == 0)
+        return 0;
+    int time = inf;
+    // create tq which is a clone of pq
+    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> tq = pq;
+
+    vector<int> p = pq.top();
+    vector<int> t = tq.top();
+    pq.pop();
+    tq.pop();
+
+    // case 1 : change the tyre of the fastest car and race it
+    t[0] = t[2];
+    tq.push(t);
+    time = min(time, changeTime + t[0] + minTimeToFinish(tq, changeTime, numLaps - 1));
+
+    // case 2 : dont change the tyre but race the fastest car
+    p[0] *= p[1];
+    pq.push(p);
+    time = min(time, p[0] + minTimeToFinish(pq, changeTime, numLaps - 1));
+
+    return time;
+}
+
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+    ll n, changeTime, numLaps;
+    cin >> n >> changeTime >> numLaps;
+    vector<vector<int>> tires;
+    for (int i = 0; i < n; i++)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
-        {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
+        int a, r;
+        cin >> a >> r;
+        tires.pb({a, r, a});
     }
+    // create a minheap of the tires sorted by the time when they will be finished
+    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
+    for (auto tire : tires)
+        pq.push(tire);
+
+    print(minTimeToFinish(pq, changeTime, numLaps));
 }
 
 int32_t main()

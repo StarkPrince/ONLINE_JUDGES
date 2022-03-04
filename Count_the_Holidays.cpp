@@ -1,6 +1,3 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -70,72 +67,30 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
-    {
-        int t;
-        cin >> t;
-        if (t == 1)
-        {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-        else
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
-        }
-    }
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    cinv(v, n);
+    set<int> st;
+    // insert(6, 13, 20, 7, 14, 21, 28) in the set
+    st.insert(6);
+    st.insert(13);
+    st.insert(20);
+    st.insert(27);
+    st.insert(7);
+    st.insert(14);
+    st.insert(21);
+    st.insert(28);
+    for (int i = 0; i < n; i++)
+        st.insert(v[i]);
+    print(len(st));
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

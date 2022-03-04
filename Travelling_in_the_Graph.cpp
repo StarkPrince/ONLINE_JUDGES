@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -69,91 +65,95 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+struct dijkstra
+{
+    int n;
+    vector<ll> dists;
+    vector<int> par;
+    vector<bool> vis;
+    vector<vector<pair<ll, int>>> edges;
+
+    void init(int n)
+    {
+        dists = vector<ll>(n);
+        vis = vector<bool>(n);
+        par = vector<int>(n);
+        edges = vector<vector<pair<ll, int>>>(n);
+    }
+
+    void edge(int a, int b, ll wt)
+    {
+        edges[a].push_back(make_pair(wt, b));
+        edges[b].push_back(make_pair(wt, a));
+    }
+
+    using ptype = pair<ll, int>;
+    void run(int src)
+    {
+        fill(dists.begin(), dists.end(), inf);
+        fill(vis.begin(), vis.end(), false);
+        fill(par.begin(), par.end(), -1);
+
+        priority_queue<ptype, vector<ptype>, greater<ptype>> pq;
+        dists[src] = 0;
+        pq.push(make_pair(0, src));
+        while (!pq.empty())
+        {
+            ptype foc = pq.top();
+            pq.pop();
+
+            if (vis[foc.second])
+                continue;
+            vis[foc.second] = 1;
+
+            dists[foc.second] = min(dists[foc.second], foc.first);
+            for (ptype x : edges[foc.second])
+            {
+                ll d = dists[foc.second] + x.first;
+                if (d < dists[x.second])
+                {
+                    dists[x.second] = d;
+                    par[x.second] = foc.second;
+                    pq.push(make_pair(d, x.second));
+                }
+            }
+        }
+    }
+};
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<vector<char>> s(n, vector<char>(n));
-    for (int i = 0; i < n; i++)
+    ll n, m;
+    cin >> n >> m;
+    dijkstra d;
+    d.init(n);
+    vector<bool> kt(n, false);
+    for (int i = 0; i < m; i++)
     {
-        vector<char> v(n);
-        cinv(v, n);
-        s[i] = v;
-    }
-    ll ans = 0;
-
-    // check horizontallly
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = 0; j < n; j++)
+        int a, b;
+        cin >> a >> b;
+        d.edge(a - 1, b - 1, 0);
+        if (abs(a - b) == 1)
         {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[j][i + k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
+            if (a > b)
+                swap(a, b);
+            kt[a - 1] = true;
         }
     }
-    // check vertically
-    for (int i = 0; i < n - 5 && ans == 0; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j = 0; j < n && ans == 0; j++)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
+        if (!kt[i])
+            d.edge(i, i + 1, 1);
     }
-    // check top left to bottom right
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = 0; j < n - 5 && ans == 0; j++)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j + k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-    // check top right to bottom left
-    for (int i = 0; i < n - 5 && ans == 0; i++)
-    {
-        for (int j = n - 1; j >= 5 && ans == 0; j--)
-        {
-            int temp = 0;
-            for (int k = 0; k < 6; k++)
-            {
-                if (s[i + k][j - k] == '#')
-                    temp++;
-            }
-            if (temp >= 4)
-                ans++;
-        }
-    }
-
-    if (ans == 0)
-        print("No");
-    else
-        print("Yes");
+    d.run(0);
+    cout << d.dists[n - 1] << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();

@@ -1,5 +1,10 @@
-// i was a dumb coz i didn't thought about the multiset maybe beacause i have less practice with it :C
-// https://atcoder.jp/contests/abc241/tasks/abc241_d
+// https://atcoder.jp/contests/arc136/tasks/arc136_a
+// Nice regular problem, the problem is to find the minimum lexicographic string posssible
+// so we will replace BA by AB and BB with A
+// since the second replace causes a size change, we can't just use arrays
+// so will have to use LinkedList or some other data structure
+// i used LinkedList connected all the nodes together and then iterate if the next node is BB then we can replace it with A and dont iterate the ptr
+// while iterating the ptr, if the next node is AB then we can replace it with BA and  iterate the ptr
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -68,67 +73,76 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+struct Node
 {
-    int q;
-    cin >> q;
-    multiset<int> a;
-    while (q--)
+public:
+    char val;
+    Node *next;
+    Node(char v) : val(v), next(NULL) {}
+};
+
+// construct a linked list class
+class LinkedList
+{
+public:
+    Node *head;
+    Node *tail;
+    LinkedList() : head(NULL), tail(NULL) {}
+    void add(char v)
     {
-        int t;
-        cin >> t;
-        if (t == 1)
+        Node *temp = new Node(v);
+        if (head == NULL)
         {
-            int x;
-            cin >> x;
-            a.insert(x);
-        }
-        else if (t == 2)
-        {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.upper_bound(x);
-            if (it == a.begin())
-            {
-                print(-1);
-                continue;
-            }
-            it--;
-            k--;
-            while (k && it != a.begin())
-            {
-                k--;
-                it--;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            head = temp;
+            tail = temp;
         }
         else
         {
-            int x, k;
-            cin >> x >> k;
-            auto it = a.lower_bound(x);
-            if (it == a.end())
-            {
-                print(-1);
-                continue;
-            }
-            k--;
-            auto last = a.end();
-            last--;
-            while (k && it != last)
-            {
-                k--;
-                it++;
-            }
-            if (k)
-                print(-1);
-            else
-                print(*it);
+            tail->next = temp;
+            tail = temp;
         }
     }
+    void print_ll()
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            cout << temp->val << "";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+void solve()
+{
+    int n, i = 0;
+    char s;
+    cin >> n;
+    LinkedList l;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> s;
+        l.add(s);
+    }
+    // traverse through the linked list
+    Node *temp = l.head;
+    while (temp != NULL && temp->next != NULL)
+    {
+        if (temp->val == 'B' && temp->next->val == 'B')
+        {
+            temp->val = 'A';
+            temp->next = temp->next->next;
+            continue;
+        }
+        else if (temp->val == 'B' && temp->next->val == 'A')
+        {
+            temp->val = 'A';
+            temp->next->val = 'B';
+        }
+        temp = temp->next;
+    }
+    l.print_ll();
 }
 
 int32_t main()
