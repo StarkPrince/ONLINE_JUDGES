@@ -1,3 +1,8 @@
+// https://codeforces.com/contest/1646/problem/B
+// problem was quite easy, sort the list and iterate over the list and check if the sum up to the ith element is greater than last i-1 elements.
+// if any of the condition is true, then the answer is "YES"
+// else answer is "NO"
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,10 +72,30 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, s;
-    cin >> n >> s;
-    ll extra = s / (n * n);
-    print(extra);
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    cinv(v, n);
+    sort(all(v));
+    vector<ll> pref(n);
+    pref[0] = v[0];
+    for (int i = 1; i < n; i++)
+        pref[i] = pref[i - 1] + v[i];
+    bool bl = false;
+    for (ll ctr = 1; ctr < n / 2 + 1; ctr++)
+    {
+        ll left = pref[ctr];
+        ll right = pref[n - 1] - pref[n - ctr - 1];
+        if (left < right)
+        {
+            bl = true;
+            break;
+        }
+    }
+    if (bl)
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
 }
 
 int32_t main()

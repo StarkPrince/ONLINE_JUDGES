@@ -1,3 +1,6 @@
+// https://codeforces.com/contest/1646/problem/0
+// pretty easy with just getting s/n*n value
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,30 +70,10 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    vector<ll> pref(n);
-    pref[0] = v[0];
-    for (int i = 1; i < n; i++)
-        pref[i] = pref[i - 1] + v[i];
-    bool bl = false;
-    for (ll ctr = 1; ctr < n / 2 + 1; ctr++)
-    {
-        ll left = pref[ctr];
-        ll right = pref[n - 1] - pref[n - ctr - 1];
-        if (left < right)
-        {
-            bl = true;
-            break;
-        }
-    }
-    if (bl)
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
+    ll n, s;
+    cin >> n >> s;
+    ll extra = s / (n * n);
+    print(extra);
 }
 
 int32_t main()
