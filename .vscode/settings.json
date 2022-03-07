@@ -16,7 +16,8 @@
     "utility": "cpp",
     "stack": "cpp",
     "set": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "type_traits": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8",

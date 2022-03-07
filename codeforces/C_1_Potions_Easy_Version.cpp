@@ -1,8 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+// https://codeforces.com/problemset/problem/1526/C1
+// nice question:
+// soln build a priority queue and insert the sum up to that number if the sum is non negative, otherwise pop the smallest element and make sum positive by substracting it from the sum and thus return the length of the queue
+
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -71,24 +71,32 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
+    int n;
     cin >> n;
-    string s;
-    cin >> s;
-    ll ans = 1;
-    for (int i = 1; i < n; i++)
+    priority_queue<long long, vector<long long>, greater<long long>> pq;
+    long long S = 0;
+
+    for (int i = 1; i <= n; i++)
     {
-        if (s[i] != s[i - 1])
-            ans++;
+        long long x;
+        cin >> x;
+        S += x;
+        pq.push(x);
+        while (S < 0)
+        {
+            S -= pq.top();
+            pq.pop();
+        }
     }
-    print(ans);
+
+    cout << (int)pq.size();
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

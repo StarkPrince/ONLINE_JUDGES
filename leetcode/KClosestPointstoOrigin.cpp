@@ -30,7 +30,7 @@ using namespace std;
 //////////////////////////////////////////////////
 typedef long long ll;
 #define int long long
-#define MOD 998244353
+#define MOD 1000000007
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
 
@@ -65,29 +65,38 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+vector<vector<int>> kClosest(vector<vector<int>> &points, int k)
+{
+    // make a heap of size k and add the first k elements
+    priority_queue<pair<int, int>, vector<pair<int, int>>> pq;
+    for (int i = 0; i < points.size(); i++)
+    {
+        int x = points[i][0], y = points[i][1];
+        int d = x * x + y * y;
+        pq.push({d, i});
+        // if the heap size is greater than k, remove the smallest element
+        if (pq.size() > k)
+            pq.pop();
+    }
+    // now the heap contains the k closest elements to the origin push them in a vector
+    vector<vector<int>> ans;
+    while (!pq.empty())
+    {
+        ans.pb(points[pq.top().second]);
+        pq.pop();
+    }
+    return ans;
+}
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<vector<ll>> dp(9, vector<ll>(1000005, -1));
-    for (int j = 0; j < n; j++)
-    {
-        for (int i = 0; i < 9; i++)
-        {
-            if (j == 0)
-                dp[i][j] = 1;
-            else if (i == 0)
-                dp[i][j] = (dp[i][j - 1] + dp[i + 1][j - 1]) % MOD;
-            else if (i == 8)
-                dp[i][j] = (dp[i][j - 1] + dp[i - 1][j - 1]) % MOD;
-            else
-                dp[i][j] = (dp[i - 1][j - 1] + dp[i + 1][j - 1] + dp[i][j - 1]) % MOD;
-        }
-    }
-    ll sm = 0;
-    for (int i = 0; i < 9; i++)
-        sm += dp[i][n - 1];
-    print(sm % MOD);
+    int n, k;
+    cin >> n >> k;
+    vector<vector<int>> points(n, vector<int>(2));
+    for (int i = 0; i < n; i++)
+        cin >> points[i][0] >> points[i][1];
+    vector<vector<int>> ans = kClosest(points, k);
+    for (int i = 0; i < ans.size(); i++)
+        cout << ans[i][0] << " " << ans[i][1] << endl;
 }
 
 int32_t main()

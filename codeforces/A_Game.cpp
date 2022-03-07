@@ -1,3 +1,8 @@
+// https://codeforces.com/contest/1649/problem/0
+// fucking retarted mamoth problem setter
+// bitch why do you even set problem if you cant write english properly
+// return the difference between the indicies of left most and rightmost consecutive 1
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,19 +72,20 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
+    int n, ans = 0, last = 1;
     cin >> n;
-    vector<ll> a(n);
-    for (int i = 0; i < n; i++)
-    {
-        if (i == 0 || i == 1)
-            a[i] = i + 1;
-        else if (i % 2 == 0)
-            a[i] = i / 2 + 2;
-        else
-            a[i] = 2 * a[i - 1];
-    }
-    pv(a);
+    vector<int> v(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> v[i];
+    int x = 1, y = n;
+    while (x < n && v[x + 1] == 1)
+        x++;
+    while (y > 1 && v[y - 1] == 1)
+        y--;
+    if (x == n)
+        print(0);
+    else
+        print(y - x);
 }
 
 int32_t main()

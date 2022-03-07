@@ -1,3 +1,8 @@
+// https://atcoder.jp/contests/abc242/tasks/abc242_c
+// nice dp question, dont do with recursion
+// for 1 to 9 build function that takes (num and steps) if step is 0 return 0
+// if step is 1 return 1 else return the possible steps of n-1,n and n+1 like (8,3) will call (7,2) (8,2) and (9,2)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -30,7 +35,7 @@ using namespace std;
 //////////////////////////////////////////////////
 typedef long long ll;
 #define int long long
-#define MOD 1000000007
+#define MOD 998244353
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
 
@@ -69,28 +74,32 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    set<int> st;
-    // insert(6, 13, 20, 7, 14, 21, 28) in the set
-    st.insert(6);
-    st.insert(13);
-    st.insert(20);
-    st.insert(27);
-    st.insert(7);
-    st.insert(14);
-    st.insert(21);
-    st.insert(28);
-    for (int i = 0; i < n; i++)
-        st.insert(v[i]);
-    print(len(st));
+    vector<vector<ll>> dp(9, vector<ll>(1000005, -1));
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (j == 0)
+                dp[i][j] = 1;
+            else if (i == 0)
+                dp[i][j] = (dp[i][j - 1] + dp[i + 1][j - 1]) % MOD;
+            else if (i == 8)
+                dp[i][j] = (dp[i][j - 1] + dp[i - 1][j - 1]) % MOD;
+            else
+                dp[i][j] = (dp[i - 1][j - 1] + dp[i + 1][j - 1] + dp[i][j - 1]) % MOD;
+        }
+    }
+    ll sm = 0;
+    for (int i = 0; i < 9; i++)
+        sm += dp[i][n - 1];
+    print(sm % MOD);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

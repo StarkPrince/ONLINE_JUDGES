@@ -1,3 +1,8 @@
+// https://www.codechef.com/START28B/problems/TRAVELLING
+// you have to reach n from 1
+// add (i,i+1) edge with weight 1 for each i which doesnt already have an edge
+// run dijkstra from 1 to n and return the minimum cost
+
 #include <bits/stdc++.h>
 using namespace std;
 

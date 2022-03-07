@@ -1,3 +1,7 @@
+// https://www.codechef.com/START28B/problems/SUNDAY
+// stupid question
+// build a set and insert the days and return the length of count
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,11 +35,8 @@ using namespace std;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
-#define MOD_ 998244353
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
-#define MAX(v) *max_element(v.begin(), v.end())
-#define MIN(v) *min_element(v.begin(), v.end())
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
@@ -53,10 +54,6 @@ typedef long long ll;
 #define len(p) (ll) p.size()
 
 ///////////////////////////////////////////////////
-ll lcm(ll x, ll y)
-{
-    return ((x * y) / __gcd(x, y));
-}
 
 ll binpow(ll a, ll b, ll m = 1e18)
 {
@@ -74,6 +71,23 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    cinv(v, n);
+    set<int> st;
+    // insert(6, 13, 20, 7, 14, 21, 28) in the set
+    st.insert(6);
+    st.insert(13);
+    st.insert(20);
+    st.insert(27);
+    st.insert(7);
+    st.insert(14);
+    st.insert(21);
+    st.insert(28);
+    for (int i = 0; i < n; i++)
+        st.insert(v[i]);
+    print(len(st));
 }
 
 int32_t main()

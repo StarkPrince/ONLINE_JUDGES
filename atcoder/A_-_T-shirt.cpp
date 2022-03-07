@@ -1,3 +1,6 @@
+// https://atcoder.jp/contests/abc242/tasks/abc242_a
+// Dumb question:  divide c by  (b-a) to get the probability
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,30 +70,20 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int n;
-    cin >> n;
-    priority_queue<long long, vector<long long>, greater<long long>> pq;
-    long long S = 0;
-
-    for (int i = 1; i <= n; i++)
-    {
-        long long x;
-        cin >> x;
-        S += x;
-        pq.push(x);
-        while (S < 0)
-        {
-            S -= pq.top();
-            pq.pop();
-        }
-    }
-
-    cout << (int)pq.size();
+    long double a, b, c, x;
+    cin >> a >> b >> c >> x;
+    if (x <= a)
+        print(1);
+    else if (x <= b)
+        print(c / (b - a));
+    else
+        print(0);
 }
 
 int32_t main()
 {
-
+    // set precision to 12
+    cout << fixed << setprecision(12);
     int tc = 1;
     // cin >> tc;
     while (tc--)

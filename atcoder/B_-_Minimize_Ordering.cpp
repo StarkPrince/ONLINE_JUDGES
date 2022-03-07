@@ -1,5 +1,5 @@
-// https://atcoder.jp/contests/arc136/tasks/arc136_b
-// Nice question : give it a try
+// https://atcoder.jp/contests/abc242/tasks/abc242_b
+// simple sorting, push chars in a vect and sort it and join it to form the string
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -68,86 +68,17 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-struct Node
-{
-public:
-    int val;
-    Node *next;
-    Node(int v) : val(v), next(NULL) {}
-};
-
-// construct a linked list class
-class LinkedList
-{
-public:
-    Node *head;
-    Node *tail;
-    LinkedList() : head(NULL), tail(NULL) {}
-    void add(int v)
-    {
-        Node *temp = new Node(v);
-        if (head == NULL)
-        {
-            head = temp;
-            tail = temp;
-        }
-        else
-        {
-            tail->next = temp;
-            tail = temp;
-        }
-    }
-    void print_ll()
-    {
-        Node *temp = head;
-        while (temp != NULL)
-        {
-            cout << temp->val << " ";
-            temp = temp->next;
-        }
-        cout << endl;
-    }
-};
-
 void solve()
 {
-    int n, temp;
-    bool bl = true;
-
-    cin >> n;
-    vector<int> A(n), B(n);
-    cinv(A, n);
-    cinv(B, n);
-
-    for (int i = 0; i < n - 2 && bl; i++)
-    {
-        if (A[i] != B[i])
-        {
-            if (A[i] == B[i + 2])
-            {
-                temp = A[i + 2];
-                A[i + 2] = A[i + 1];
-                A[i + 1] = A[i];
-                A[i] = temp;
-            }
-            else if (A[i] == B[i + 1])
-            {
-                temp = A[i];
-                A[i] = A[i + 1];
-                A[i + 1] = A[i + 2];
-                A[i + 2] = temp;
-            }
-            else
-            {
-                bl = false;
-            }
-        }
-        pv(A);
-    }
-    if (bl)
-        print("Yes");
-    else
-        print("No");
+    string s;
+    cin >> s;
+    vector<char> v(s.begin(), s.end());
+    sort(all(v));
+    int n = s.size();
+    string ans = "";
+    for (int i = 0; i < n; i++)
+        ans += v[i];
+    print(ans);
 }
 
 int32_t main()

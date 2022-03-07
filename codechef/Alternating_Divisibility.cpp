@@ -1,3 +1,7 @@
+// https://www.codechef.com/COOK139B/problems/ALTERNATEDIV
+//  I was dumb not to notice that the elements were repeating in my sequence
+//  Soln: for even indices print i+1 and for odd print double of previous one
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,25 +71,70 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    string s;
-    cin >> s;
-    vector<char> v(s.begin(), s.end());
-    sort(all(v));
-    int n = s.size();
-    string ans = "";
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
     for (int i = 0; i < n; i++)
-        ans += v[i];
-    print(ans);
+    {
+        if (i % 2 == 0)
+            a[i] = i + 1;
+        else
+            a[i] = 2 * a[i - 1];
+    }
+    pv(a);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();
     }
     return 0;
 }
+// https://codeforces.com/gym/103185/problem/G
+// https://codeforces.com/contest/154/problem/A
+// https://codeforces.com/contest/474/problem/D
+// https://codeforces.com/contest/339/problem/D
+// https://codeforces.com/contest/1548/problem/B
+// https://codeforces.com/contest/1545/problem/C
+// https://codeforces.com/contest/1545/problem/D
+// https://codeforces.com/contest/1508/problem/D
+// https://codeforces.com/contest/1482/problem/D
+// https://codeforces.com/contest/1609/problem/D
+// https://codeforces.com/contest/1552/problem/D
+// https://codeforces.com/contest/1589/problem/D
+// https://codeforces.com/contest/1586/problem/I
+// https://codeforces.com/contest/1491/problem/I
+// https://codeforces.com/contest/1553/problem/I
+// https://codeforces.com/contest/1586/problem/F
+// https://codeforces.com/contest/1586/problem/F
+// https://codeforces.com/contest/1552/problem/H
+// https://codeforces.com/contest/1548/problem/E
+// https://codeforces.com/contest/1583/problem/F
+// https://codeforces.com/contest/1552/problem/H
+// https://codeforces.com/contest/1545/problem/F
+// https://codeforces.com/contest/1552/problem/G
+// https://codeforces.com/contest/1543/problem/E
+// https://codeforces.com/contest/1503/problem/F
+// https://codeforces.com/contest/1610/problem/F
+// https://codeforces.com/contest/1562/problem/F
+// https://codeforces.com/contest/1553/problem/H
+// https://codeforces.com/contest/1552/problem/G
+// https://codeforces.com/contest/1558/problem/F
+// https://codeforces.com/contest/1612/problem/F
+// https://codeforces.com/contest/1548/problem/E
+// https://codeforces.com/contest/1530/problem/H
+// https://codeforces.com/contest/1578/problem/H
+// https://codeforces.com/contest/1610/problem/H
+// https://codeforces.com/contest/1580/problem/F
+// https://codeforces.com/contest/1553/problem/H
+// https://codeforces.com/contest/1622/problem/F
+// https://codeforces.com/contest/1578/problem/G
+// https://codeforces.com/contest/1606/problem/F
+// https://codeforces.com/contest/1605/problem/F
+// https://codeforces.com/contest/1537/problem/F
+// https://codeforces.com/contest/1355/problem/D

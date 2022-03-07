@@ -1,4 +1,9 @@
-#include <bits/stdc++.h>
+// https://www.codechef.com/START27B/problems/BINSTRING
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -67,28 +72,24 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    long double a, b, c, x;
-    cin >> a >> b >> c >> x;
-    if (x <= a)
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    ll ans = 1;
+    for (int i = 1; i < n; i++)
     {
-        print(1);
+        if (s[i] != s[i - 1])
+            ans++;
     }
-    else if (x <= b)
-    {
-        print(c / (b - a));
-    }
-    else
-    {
-        print(0);
-    }
+    print(ans);
 }
 
 int32_t main()
 {
-    // set precision to 12
-    cout << fixed << setprecision(12);
+
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
     {
         solve();
