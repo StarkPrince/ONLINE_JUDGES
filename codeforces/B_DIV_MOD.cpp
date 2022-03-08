@@ -1,11 +1,12 @@
-// https://codeforces.com/contest/1644/problem/C
-//  pretty easy answer
+// https://codeforces.com/contest/1650/problem/B
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+// Nice question:
+//  first we have to get the blunt answer like what would be the result of the division and modulo
+// then we have to get module and check if it is best or not like equal to a-1 or not
+// if not we will reduce modulo + 1 from r and check again if the result is greater than l if not return what
+// is the answer we are obtaining on max(l,r) other wise we will return max(prev ans , val/a+val%a) where val is r -modulo +1
+
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -74,24 +75,19 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-    vector<ll> a(n);
-    cinv(a, n);
-    vector<ll> pref(n + 1);
-    for (int i = 1; i <= n; i++)
-        pref[i] = pref[i - 1] + a[i - 1];
-    ll ans = 0;
-    for (int i = 0; i < n; i++)
-    {
-        ll mn = inf;
-        for (int j = i + 1; j <= n; j++)
-            mn = min(mn, pref[j] - pref[j - (i + 1)]);
-        if (mn >= ans)
-            ans = mn + x * i;
-        cout << ans << " ";
-    }
-    cout << endl;
+    ll l, r, a;
+    cin >> l >> r >> a;
+    // blunt answer
+    ll ans = (r / a) + r % a;
+    // extra values
+    ll ex = r % a;
+    ll dec = 0;
+    if (ex != a - 1)
+        dec = ex + 1;
+
+    ll val = max(r - dec, l);
+    ans = max(ans, val / a + val % a);
+    cout << ans << "\n";
 }
 
 int32_t main()

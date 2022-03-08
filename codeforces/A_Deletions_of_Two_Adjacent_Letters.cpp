@@ -1,11 +1,6 @@
-// https://codeforces.com/contest/1644/problem/C
-//  pretty easy answer
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+// https://codeforces.com/contest/1650/problem/0
+//  just check if no of characters in the left of the any char that is equal to given char is even on both sides
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -74,24 +69,32 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-    vector<ll> a(n);
-    cinv(a, n);
-    vector<ll> pref(n + 1);
-    for (int i = 1; i <= n; i++)
-        pref[i] = pref[i - 1] + a[i - 1];
-    ll ans = 0;
-    for (int i = 0; i < n; i++)
+    string s;
+    cin >> s;
+    char t;
+    cin >> t;
+    ll n = s.size();
+    vector<int> v;
+    for (ll i = 0; i < n; i++)
     {
-        ll mn = inf;
-        for (int j = i + 1; j <= n; j++)
-            mn = min(mn, pref[j] - pref[j - (i + 1)]);
-        if (mn >= ans)
-            ans = mn + x * i;
-        cout << ans << " ";
+        if (s[i] == t)
+            v.pb(i);
     }
-    cout << endl;
+    bool bl = false;
+    for (ll i = 0; i < v.size(); i++)
+    {
+        int left = v[i];
+        int right = n - v[i] - 1;
+        if (left % 2 == 0 && right % 2 == 0)
+        {
+            bl = true;
+            break;
+        }
+    }
+    if (bl)
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
 }
 
 int32_t main()
