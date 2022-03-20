@@ -94,7 +94,7 @@ int countCollisions(string directions)
             cnt = 0;
         }
     }
-    print(col);
+    cout << col << endl;
 }
 
 void solve()

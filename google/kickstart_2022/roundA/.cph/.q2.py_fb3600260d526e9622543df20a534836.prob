@@ -1,0 +1,1 @@
+{"name":"Local: q2","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\google\\kickstart_2022\\roundA\\q2.py","tests":[{"id":1647749900372,"input":"3\n5\n33\n12121","output":"Case #1: 45\nCase #2: 333\nCase #3: 121212"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\google\\kickstart_2022\\roundA\\q2.py","group":"local","local":true}
