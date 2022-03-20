@@ -1,3 +1,7 @@
+// https://atcoder.jp/contests/abc243/tasks/abc243_b
+// store a dict of count of common element like min of count of values for each key and then,
+// iterate through the numbers and check if they are same on same positions and if yes, increase a count variable and then print the count and common - count
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -74,35 +78,35 @@ void solve()
 {
     ll n;
     cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    vector<ll> a(n);
+    cinv(a, n);
+    vector<ll> b(n);
+    cinv(b, n);
+    map<ll, ll> ma;
+    map<ll, ll> mb;
+    ll same = 0;
+    for (int i = 0; i < n; i++)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        ma[a[i]]++;
+        mb[b[i]]++;
+        if (a[i] == b[i])
+            same++;
     }
-    else
+    ll common = 0;
+    for (auto i : ma)
     {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
-        {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
-        }
-        print(ans);
+        if (mb.find(i.first) != mb.end())
+            common += min(i.second, mb[i.first]);
     }
+    print(same);
+    print(common - same);
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     return 0;

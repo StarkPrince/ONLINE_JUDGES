@@ -1,0 +1,1 @@
+{"name":"Local: CountCollisionsonaRoad","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\CountCollisionsonaRoad.cpp","tests":[{"id":1647745241541,"input":"RLRSLL","output":"5"},{"id":1647745272179,"input":"LLRR","output":"0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\CountCollisionsonaRoad.cpp","group":"local","local":true}
