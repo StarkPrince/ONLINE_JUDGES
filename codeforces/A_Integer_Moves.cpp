@@ -1,3 +1,7 @@
+// Problem : https://codeforces.com/contest/1657/problem/A
+
+// easy peasy question we can reach to any coordinate in max 2 steps on complete horizontally and another complete vertically, if the diagonal distance is an integer, we just have to travel one step other wise 2 and for origin we dont have to
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,13 +76,14 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    ll a, b;
+    cin >> a >> b;
+    if (a == b == 0)
+        cout << 0 << endl;
+    else if (a * a + b * b == 0)
+        cout << 1 << endl;
+    else
+        cout << 2 << endl;
 }
 
 int32_t main()

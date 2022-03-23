@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// https://codeforces.com/contest/1542/problem/C
+//  nice question, applied sieve method but no need to iterate over sqrt(n) as the values will be taken somewhat factorial so it will go exponentially
+// keep on multiplying with i and substract from the remaning number of integers
+
 ///////////////////////////////////////////////////
 /*
 ██████╗░██████╗░██╗███╗░░██╗░█████╗░███████╗  ██████╗░░█████╗░░░░░░██╗
@@ -70,15 +74,23 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+ll lcm(ll a, ll b)
+{
+    return a / __gcd(a, b) * b;
+}
+
 void solve()
 {
-    ll n;
+    ll n, cnt = 0, prod = 1, lm;
     cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    for (int i = 2; i < 60; i++)
+    {
+        lm = lcm(prod, i);
+        cnt += i * ((n / prod) - (n / (lm)));
+        prod = lm;
+        cnt %= MOD;
+    }
+    cout << cnt << endl;
 }
 
 int32_t main()

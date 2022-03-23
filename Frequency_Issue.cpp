@@ -72,13 +72,21 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
+    ll n, x;
+    cin >> n >> x;
     vector<ll> v(n);
     cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    map<ll, ll> m;
+    for (auto i : v)
+    {
+        m[i]++;
+        m[i - x]++;
+        m[i + x]++;
+    }
+    ll mn = -inf;
+    for (auto i : m)
+        mn = max(mn, i.second);
+    cout << mn << endl;
 }
 
 int32_t main()

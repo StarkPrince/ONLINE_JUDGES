@@ -1,3 +1,6 @@
+// ?Problem : https://codeforces.com/contest/1657/problem/C
+// *soln :  there can be four type of sequence in first 2 characters, ((, (), )) and )(, for the first three case increase i by 2 and just else increase i till a[i]!=")" again which will make the sequence a palindrome and thus we can increase i to that number and if for the whole traversal you didnt found any palindrom or RBS, return the length of the string - catched(i)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,13 +75,38 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    ll a, temp;
+    string b;
+    cin >> a >> b;
+    ll operations = 0;
+    ll i = 0;
+    bool bl = true;
+    while (i < a - 1)
+    {
+        if (b[i] == '(' or (b[i] == ')' and b[i + 1] == ')'))
+        {
+            operations += 1;
+            i += 2;
+        }
+        else
+        {
+            temp = i;
+            i += 1;
+            while (b[i] == '(' and i < a - 1)
+                i += 1;
+            if (b[i] == ')')
+            {
+                operations += 1;
+                i += 1;
+            }
+            else
+                bl = false;
+        }
+    }
+    if (bl)
+        cout << operations << " " << a - i << endl;
+    else
+        cout << operations << " " << a - temp << endl;
 }
 
 int32_t main()

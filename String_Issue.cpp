@@ -72,20 +72,36 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
+    ll n, q;
     cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    string s;
+    cin >> s;
+    map<char, ll> m;
+    vector<ll> v(1, 0);
+    for (int i = 0; i < n; i++)
+    {
+        if (m.find(s[i]) == m.end())
+        {
+            m[s[i]] = i + 1;
+            v.pb(v[v.size() - 1] + i + 1);
+        }
+        else
+            v.pb(v[v.size() - 1] + m[s[i]]);
+    }
+    cin >> q;
+    while (q--)
+    {
+        ll l, r;
+        cin >> l >> r;
+        cout << v[r] - v[l - 1] << endl;
+    }
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     return 0;

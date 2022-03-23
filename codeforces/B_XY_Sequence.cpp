@@ -1,3 +1,6 @@
+// ?Problem: https://codeforces.com/contest/1657/problem/B
+// *Solution: trash question, if i is less than b increase x else decrease y
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,13 +75,18 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    ll n, b, x, y;
+    cin >> n >> b >> x >> y;
+    ll a = 0, sm = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (a + x <= b)
+            a += x;
+        else
+            a -= y;
+        sm += a;
+    }
+    print(sm);
 }
 
 int32_t main()

@@ -1,1 +1,0 @@
-{"name":"Local: ChallengeNine","url":"c:\\TempD\\Codes\\ONLINE_JUDGES\\ChallengeNine.py","tests":[{"id":1647795138166,"input":"3\n5\n33\n12121","output":"Case #1: 45\nCase #2: 333\nCase #3: 121212"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\TempD\\Codes\\ONLINE_JUDGES\\ChallengeNine.py","group":"local","local":true}
