@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -55,6 +51,11 @@ typedef long long ll;
 
 ///////////////////////////////////////////////////
 
+ll handle_mod(ll n, ll mod = MOD)
+{
+    return (n < 0 ? mod - abs(n % mod) : n) % mod;
+}
+
 ll binpow(ll a, ll b, ll m = 1e18)
 {
     a %= m;
@@ -71,19 +72,16 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll a, b;
-    cin >> a >> b;
-    cout << b / __gcd(a, b) << endl;
+    ll n;
+    vector<pair<ll, ll>>
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
-    {
         solve();
-    }
     return 0;
 }

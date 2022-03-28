@@ -2,6 +2,7 @@
   "clockify.tracking.projectId": "5fbf4509fa7d80496f1a5648",
   "files.associations": {
     "*.ejs": "html",
+    "*.json": "bibtex",
     "xstring": "cpp",
     "cmath": "cpp",
     "vector": "cpp",
@@ -18,7 +19,8 @@
     "set": "cpp",
     "limits": "cpp",
     "type_traits": "cpp",
-    "xlocale": "cpp"
+    "xlocale": "cpp",
+    "list": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8",
