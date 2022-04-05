@@ -70,27 +70,39 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+bool in(int x, int l, int r)
+{
+    return l <= x && x <= r;
+}
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
+    ll n, h, l, r;
+    cin >> n >> h >> l >> r;
+    vector<int> a(n);
     cinv(a, n);
-    ll mx = 0, ans = 0;
-    for (int i = 0; i < n; i++)
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1, INT_MIN));
+    dp[0][0] = 0;
+    int sum = 0;
+    for (int i = 0; i < n; ++i)
     {
-        mx = max(mx, a[i]);
-        if (mx == i + 1)
-            ans++;
+        sum += a[i];
+        for (int j = 0; j <= n; ++j)
+        {
+            dp[i + 1][j] = max(dp[i + 1][j], dp[i][j] + in((sum - j) % h, l, r));
+            if (j < n)
+                dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j] + in((sum - j - 1) % h, l, r));
+        }
     }
-    print(ans);
+
+    cout << *max_element(dp[n].begin(), dp[n].end()) << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     return 0;

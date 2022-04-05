@@ -1,6 +1,3 @@
-from tkinter import E
-
-
 index_file = int(input())
 
 files = [

@@ -20,7 +20,8 @@
     "limits": "cpp",
     "type_traits": "cpp",
     "xlocale": "cpp",
-    "list": "cpp"
+    "list": "cpp",
+    "xmemory": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8",

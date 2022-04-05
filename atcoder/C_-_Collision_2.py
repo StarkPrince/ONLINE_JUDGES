@@ -29,6 +29,3 @@ for i, j in mp.items():
         print("Yes")
         exit()
 print("No")
-
-# for i, j in mp.items():
-#     print(i, "=>", *j)

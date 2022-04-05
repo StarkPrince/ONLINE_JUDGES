@@ -70,26 +70,106 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+// def getMax(arr):
+//     product = 1
+//     for i in arr:
+//         product *= i
+//     if product > 0:
+//         return [0, len(arr)-1, product]
+//     lt = rt = 1
+//     i = 0
+//     while (lt > 0 and rt > 0):
+//         lt *= arr[i]
+//         i += 1
+//     j = len(arr)-1
+//     while (rt > 0 and j >= 0):
+//         rt *= arr[j]
+//         j -= 1
+//     if abs(lt) >= abs(rt):
+//         return [0, j, product//rt]
+//     else:
+//         return [i, len(arr)-1, product//lt]
+vector<ll> getMax(vector<ll> arr)
+{
+    ll product = 1;
+    for (auto i : arr)
+        product *= i;
+    if (product > 0)
+        return {0, len(arr) - 1, product};
+    ll lt = 1, rt = 1;
+    ll i = 0, j = len(arr) - 1;
+    while (lt > 0 and rt > 0)
+    {
+        lt *= arr[i];
+        i += 1;
+    }
+    while (rt > 0 and j >= 0)
+    {
+        rt *= arr[j];
+        j -= 1;
+    }
+    if (abs(lt) >= abs(rt))
+        return {0, j, product / rt};
+    else
+        return {i, len(arr) - 1, product / lt};
+}
+
+// for _ in range(int(input())):
+//     n = int(input())
+//     v = [int(x) for x in input().split()]
+//     s = []
+//     temp = []
+//     for i in range(n):
+//         if v[i] != 0:
+//             temp.append(v[i])
+//         else:
+//             s.append(temp)
+//             temp = []
+//     s.append(temp)
+//     mx = 1
+//     ans = [0, -1]
+//     ctr = 0
+//     for arr in s:
+//         lt, rt, prod = getMax(arr)
+//         if prod > mx:
+//             ans = [ctr + lt, ctr + rt]
+//             mx = max(prod, mx)
+//         ctr += len(arr) + 1
+//     print(ans[0], n-ans[1] - 1)
+
 void solve()
 {
-    ll n;
+    ll n, i = 0, mx = 1, ctr = 0;
     cin >> n;
-    string s;
-    cin >> s;
-    ll one = 0, zero = 0;
-    for (int i = 0; i < n; i++)
+    vector<ll> v(n), temp;
+    cinv(v, n);
+    pair<ll, ll> ans = {0, -1};
+    vector<vector<ll>> s;
+    while (i < n)
     {
-        if (s[i] == '1')
-            one++;
+        if (v[i] != 0)
+            temp.pb(v[i]);
         else
-            zero++;
+        {
+            s.pb(temp);
+            temp.clear();
+        }
+        i++;
     }
-    if (zero == one)
-        cout << 2 * zero << endl;
-    else if (zero > one)
-        cout << 2 * one + 1 << endl;
-    else
-        cout << 2 * zero + 1 << endl;
+    s.pb(temp);
+    for (auto i : s)
+    {
+        vector<ll> temp = getMax(i);
+        ll lt = temp[0], rt = temp[1], prod = temp[2];
+        if (prod > mx)
+        {
+            ans.first = ctr + lt;
+            ans.second = ctr + rt;
+            mx = prod;
+        }
+        ctr += len(i) + 1;
+    }
+    cout << ans.first << " " << n - ans.second - 1 << endl;
 }
 
 int32_t main()

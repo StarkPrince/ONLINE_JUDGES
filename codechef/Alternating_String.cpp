@@ -1,11 +1,7 @@
-// https://codeforces.com/contest/1644/problem/C
-//  pretty easy answer
+// ?Problem https://www.codechef.com/START31B/problems/ALTSTR
+// *dumb question not gonna explain
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <map>
+#include <bits/stdc++.h>
 using namespace std;
 
 ///////////////////////////////////////////////////
@@ -58,6 +54,11 @@ typedef long long ll;
 
 ///////////////////////////////////////////////////
 
+ll handle_mod(ll n, ll mod = MOD)
+{
+    return (n < 0 ? mod - abs(n % mod) : n) % mod;
+}
+
 ll binpow(ll a, ll b, ll m = 1e18)
 {
     a %= m;
@@ -74,24 +75,24 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-    vector<ll> a(n);
-    cinv(a, n);
-    vector<ll> pref(n + 1);
-    for (int i = 1; i <= n; i++)
-        pref[i] = pref[i - 1] + a[i - 1];
-    ll ans = 0;
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    ll one = 0, zero = 0;
     for (int i = 0; i < n; i++)
     {
-        ll mn = inf;
-        for (int j = i + 1; j <= n; j++)
-            mn = min(mn, pref[j] - pref[j - (i + 1)]);
-        if (mn >= ans)
-            ans = mn + x * i;
-        cout << ans << " ";
+        if (s[i] == '1')
+            one++;
+        else
+            zero++;
     }
-    cout << endl;
+    if (zero == one)
+        cout << 2 * zero << endl;
+    else if (zero > one)
+        cout << 2 * one + 1 << endl;
+    else
+        cout << 2 * zero + 1 << endl;
 }
 
 int32_t main()
@@ -100,8 +101,6 @@ int32_t main()
     int tc = 1;
     cin >> tc;
     while (tc--)
-    {
         solve();
-    }
     return 0;
 }

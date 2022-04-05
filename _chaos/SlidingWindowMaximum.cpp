@@ -72,20 +72,62 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    cinv(v, n);
-    sort(all(v));
-    ll sum = v[n - 1] + v[n - 2];
-    print(sum);
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> nums(n);
+    cinv(nums, n);
+    // multiset<ll> s;
+    // for (int i = 0; i < k; i++)
+    //     s.insert(a[i]);
+    // // print max element of multiset s
+    // for (int i = 0; i < n - k; i++)
+    // {
+    //     cout << *s.rbegin() << ' ';
+    //     s.erase(s.find(a[i]));
+    //     s.insert(a[i + k]);
+    // }
+    // cout << *s.rbegin() << endl;
+    vector<int> res;
+
+    int left[n];
+    int right[n];
+
+    left[0] = nums[0];
+    right[n - 1] = nums[n - 1];
+
+    for (int i = 0; i < n; i++)
+    {
+        if (i % k == 0)
+            left[i] = nums[i];
+        else
+            left[i] = max(nums[i], left[i - 1]);
+    }
+
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (i % k == 0)
+            right[i] = nums[i];
+        else
+            right[i] = max(nums[i], right[i + 1]);
+    }
+    // print left array
+    for (int i = 0; i < n; i++)
+        cout << left[i] << ' ';
+    cout << endl;
+    // print right array
+    for (int i = 0; i < n; i++)
+        cout << right[i] << ' ';
+    cout << endl;
+    // for (int i = 0; i <= n - k; i++)
+    //     res.push_back(max(right[i], left[i + k - 1]));
+    // return res;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     return 0;

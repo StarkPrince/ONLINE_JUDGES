@@ -1,3 +1,5 @@
+//?Problem: https://codeforces.com/contest/1654/problem/0
+// * we have to add the biggest two number so just sort them and add the last 2 numbers
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,38 +74,13 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    string k;
-    cin >> k;
-    vector<char> s(n);
-    for (int i = 0; i < n; i++)
-        s[i] = k[i];
-    vector<int> a;
-    int mn = inf;
-    for (int i = 0; i < n; i++)
-        if (s[i] == 'a')
-            a.push_back(i);
-    for (int i = 1; i < a.size(); i++)
-    {
-        int g = a[i] - a[i - 1];
-        if (g < 3)
-            mn = min(mn, g);
-        else if (g == 3 && s[a[i - 1] + 1] != s[a[i] - 1])
-            mn = min(mn, g);
-    }
-    if (mn > 3)
-    {
-        k = "";
-        for (int i = 0; i < n; i++)
-            k += s[i];
-        if (k.find("abbacca") != string::npos || k.find("accabba") != string::npos)
-            cout << 7 << endl;
-        else
-            cout << -1 << endl;
-    }
-    else
-        cout << mn + 1 << endl;
+    vector<ll> v(n);
+    cinv(v, n);
+    sort(all(v));
+    ll sum = v[n - 1] + v[n - 2];
+    print(sum);
 }
 
 int32_t main()

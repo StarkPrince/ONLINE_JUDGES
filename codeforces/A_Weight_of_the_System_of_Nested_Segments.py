@@ -1,3 +1,10 @@
+# Problem: https://codeforces.com/problemset/problem/1650/C
+# nice data structure question :
+# we store the weight of each segment in a dictionary along with the segment number
+# we then sort the dictionary by the weight
+# we then iterate through the sorted dictionary and add the segment number and return the sum
+
+
 for _ in range(int(input())):
     s = input()
     n, m = map(int, input().split())
