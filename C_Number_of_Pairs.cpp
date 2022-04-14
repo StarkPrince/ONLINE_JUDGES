@@ -72,15 +72,24 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    vector<pair<ll, ll>>
+    int n, l, r;
+    cin >> n >> l >> r;
+    vector<int> a(n);
+    cinv(a, n);
+    int ans = 0;
+    sort(all(a));
+    for (int i = 0; i < n - 1; i++)
+    {
+        ans += ub(a.be() + i + 1, a.en(), r - a[i]) - lb(a.be() + i + 1, a.en(), l - a[i]);
+    }
+    cout << ans << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
         solve();
     return 0;
