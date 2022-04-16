@@ -1,4 +1,5 @@
-// ?Problem :
+//  ?Problem : https://codeforces.com/problemset/problem/1547/D
+//  *Solution : Since, we have to get the minimum no of change sum we will keep taking bitwise or and returning the difference between that value and the current value.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -86,28 +87,23 @@ void solve()
 {
     int n;
     cin >> n;
-    vector<int> a(n);
-    cinv(a, n);
-    for (auto i : a)
-    {
-        int ans = 20;
-        for (int cntAdd = 0; cntAdd <= 15; cntAdd++)
-        {
-            for (int cntMul = 0; cntMul <= 15; cntMul++)
-            {
-                if (((i + cntAdd) << cntMul) % 32768 == 0)
-                    ans = min(ans, cntAdd + cntMul);
-            }
-        }
-        cout << ans << " ";
-    }
+    vector<int> v(n);
+    cinv(v, n);
+    int ls = 0;
+    vector<int> ans;
+    ans.push_back(v[0]);
+    for (int i = 1; i < n; i++)
+        ans.push_back(v[i] | ans[i - 1]);
+    for (int i = 0; i < n; i++)
+        cout << ans[i] - v[i] << ' ';
+    cout << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

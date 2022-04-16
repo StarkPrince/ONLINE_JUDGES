@@ -1,4 +1,5 @@
-// ?Problem :
+//  ?Problem : https://codeforces.com/contest/1665/problem/B
+//  *Solution : Easy peasy just keep multiplying ctr by 2 and substracting it from the no of non- zero elements till the it become zero. and count the number of steps.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,17 +40,7 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-template <typename T>
-void print(T &&t)
-{
-    cout << t << '\n';
-}
-template <typename T, typename... Args>
-void print(T &&t, Args &&...args)
-{
-    cout << t << ' ';
-    print(forward<Args>(args)...);
-}
+#define print(x) cout << x << endl
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -86,30 +77,31 @@ void solve()
 {
     int n;
     cin >> n;
-    vector<int> a(n);
-    cinv(a, n);
-    for (auto i : a)
+    vector<int> v(n);
+    cinv(v, n);
+    map<int, int> m;
+    for (auto i : v)
+        m[i]++;
+    int max_freq = 0;
+    for (auto i : m)
+        max_freq = max(max_freq, i.second);
+    int ans = 0;
+    n -= max_freq;
+    while (n > 0)
     {
-        int ans = 20;
-        for (int cntAdd = 0; cntAdd <= 15; cntAdd++)
-        {
-            for (int cntMul = 0; cntMul <= 15; cntMul++)
-            {
-                if (((i + cntAdd) << cntMul) % 32768 == 0)
-                    ans = min(ans, cntAdd + cntMul);
-            }
-        }
-        cout << ans << " ";
+        ans += 1 + min(n, max_freq);
+        n -= max_freq;
+        max_freq *= 2;
     }
+    cout << ans << endl;
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
         solve();
-    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

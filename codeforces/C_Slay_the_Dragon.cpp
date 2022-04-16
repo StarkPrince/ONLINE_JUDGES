@@ -1,4 +1,5 @@
-// ?Problem :
+// ?Problem : https://codeforces.com/problemset/problem/1574/C
+// *Solution : sort the array and get the lower bound and 1 less than lowerbound and then check what's the answer for those 2 values and return min of those
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -31,7 +32,6 @@ using namespace std;
         cin >> v[i];
 //////////////////////////////////////////////////
 typedef long long ll;
-#define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
@@ -82,27 +82,31 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+int t, n, p;
+long long a[200010], x, y, z, sum;
+long long f(long long x)
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    cinv(a, n);
-    for (auto i : a)
-    {
-        int ans = 20;
-        for (int cntAdd = 0; cntAdd <= 15; cntAdd++)
-        {
-            for (int cntMul = 0; cntMul <= 15; cntMul++)
-            {
-                if (((i + cntAdd) << cntMul) % 32768 == 0)
-                    ans = min(ans, cntAdd + cntMul);
-            }
-        }
-        cout << ans << " ";
-    }
+    if (x > 0)
+        return x;
+    return 0;
 }
 
+void solve()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%lld", &a[i]);
+        sum += a[i];
+    }
+    sort(a, a + n);
+    for (cin >> z; z > 0; z--)
+    {
+        scanf("%lld%lld", &x, &y);
+        t = lower_bound(a + 1, a + n, x) - a;
+        cout << min(f(x - a[t]) + f(y + a[t] - sum), f(x - a[t - 1]) + f(y + a[t - 1] - sum)) << endl;
+    }
+}
 int32_t main()
 {
 

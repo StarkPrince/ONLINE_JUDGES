@@ -1,5 +1,5 @@
-// ?Problem :
-
+// ?Problem: https://codeforces.com/contest/1560/problem/D
+// *Solution: just iterate for every power of two what is the least common substring and then return the changes required to make the string a power of two.
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -82,34 +82,39 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+int calc(string t, string s)
+{
+    int n = s.size(), m = t.size();
+    int idx = 0;
+    for (int i = 0; i < n && idx < m; ++i)
+        if (s[i] == t[idx])
+            idx++;
+    return (n - idx + m - idx);
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    cinv(a, n);
-    for (auto i : a)
+    string s;
+    cin >> s;
+    int ans = 2e9;
+    for (long long i = 1ll; i <= 4e18; i *= 2ll)
     {
-        int ans = 20;
-        for (int cntAdd = 0; cntAdd <= 15; cntAdd++)
-        {
-            for (int cntMul = 0; cntMul <= 15; cntMul++)
-            {
-                if (((i + cntAdd) << cntMul) % 32768 == 0)
-                    ans = min(ans, cntAdd + cntMul);
-            }
-        }
-        cout << ans << " ";
+        int idx = 0;
+        string t = to_string(i);
+        int n = s.size(), m = t.size();
+        for (int i = 0; i < n && idx < m; ++i)
+            if (s[i] == t[idx])
+                idx++;
+        ans = min(ans, (n + m - 2 * idx));
     }
+    cout << ans << endl;
 }
 
 int32_t main()
 {
-
-    int tc = 1;
-    // cin >> tc;
+    ll tc = 1;
+    cin >> tc;
     while (tc--)
         solve();
-    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

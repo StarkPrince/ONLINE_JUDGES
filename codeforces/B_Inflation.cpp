@@ -1,3 +1,6 @@
+// ?Problem : https://codeforces.com/problemset/problem/1476/B
+// *Solution : no need to increase other indicies than first one, just get the maximum incremental value of first index for all inflations.
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -37,7 +40,17 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -72,25 +85,21 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
+    ll n, m;
+    cin >> n >> m;
+    vector<ll> v(n);
     cinv(v, n);
-    map<int, int> m;
-    for (auto i : v)
-        m[i]++;
-    int max_freq = 0;
-    for (auto i : m)
-        max_freq = max(max_freq, i.second);
-    int ans = 0;
-    n -= max_freq;
-    while (n > 0)
+    ll sm = v[0];
+    ll mx = 0;
+    for (int i = 1; i < n; i++)
     {
-        ans += 1 + min(n, max_freq);
-        n -= max_freq;
-        max_freq *= 2;
+        ll k = (v[i] * 100) / m - sm;
+        if (v[i] * 100 % m != 0)
+            k += 1;
+        mx = max(mx, k);
+        sm += v[i];
     }
-    cout << ans << endl;
+    print(mx);
 }
 
 int32_t main()
@@ -100,5 +109,6 @@ int32_t main()
     cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }
