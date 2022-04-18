@@ -1,6 +1,3 @@
-// ?Problem : https://codeforces.com/contest/1647/problem/0
-// *Solution : pretty easy question, just start print "21" multiple if n is divisible by 3 else: start with n%3 and alternately add 1 and 2
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -33,14 +30,24 @@ using namespace std;
 //////////////////////////////////////////////////
 typedef long long ll;
 #define int long long
-#define MOD 1000000007
+#define MOD 998244353
 #define inf 0x3f3f3f3f
 #define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -73,40 +80,44 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+ll comb(int n, int k, ll mod = MOD)
+{
+    if (n < k)
+        return 0;
+    if (n == k)
+        return 1;
+    ll ans = 1;
+    for (int i = 1; i <= k; i++)
+        ans = ans * (n - i + 1) % mod * binpow(i, mod - 2, mod) % mod;
+    return ans;
+}
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    int n, m, k;
+    cin >> n >> m >> k;
+    ll ans1 = 0;
+    ll ans2 = 0;
+    for (int i = 0; i <= k - n; i++)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        ans1 += comb(n + i - 1, n - 1);
     }
-    else
+    k -= m;
+    for (int i = 0; i <= k - n; i++)
     {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
-        {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
-        }
-        print(ans);
+        ans2 += comb(n + i - 1, n - 1);
     }
+    ans2 *= n;
+    cout << handle_mod(ans1 - ans2) << '\n';
 }
 
 int32_t main()
 {
 
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

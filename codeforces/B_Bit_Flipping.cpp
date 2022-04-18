@@ -1,5 +1,5 @@
-// ?Problem : https://codeforces.com/contest/1647/problem/0
-// *Solution : pretty easy question, just start print "21" multiple if n is divisible by 3 else: start with n%3 and alternately add 1 and 2
+// ?Problem : https://codeforces.com/contest/1659/problem/1
+// *Solution : if k is odd, get the first 1 and flip the bits around it and if no 1 is found, flip the bit at the end. then even no of moves are remaining, so count no of zeros in it and if zeros are less than k, take two zeros and replace them with 1 in two moves so in even no of moves, convert even no of zeros to 1. now if there is a zero left we can send it to the end and if there are 2 moves left, if no moves are left, return else return the string of all 1 and last index as zero.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,7 +40,17 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -75,30 +85,63 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    vector<int> v;
+    vector<int> ans(n, 0);
+    for (int i = 0; i < n; i++)
+        v.pb(s[i] - '0');
+    if (k % 2 == 1)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        int i = 0;
+        while (i < n - 1 && s[i] != '1')
+            i++;
+        for (int j = 0; j < n; j++)
+            if (j != i)
+                v[j] = 1 ^ v[j];
+        ans[i] = 1;
     }
-    else
+    if (k % 2 == 1)
+        k -= 1;
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
+        if (v[i] == 0)
+            cnt += 1;
+    int mt = min(k, cnt);
+    if (mt % 2 == 1)
+        mt -= 1;
+    int tm = mt;
+    for (int i = 0; i < n; i++)
     {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
+        if (v[i] == 0 && mt > 0)
         {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
+            v[i] = 1;
+            mt -= 1;
+            ans[i] += 1;
         }
-        print(ans);
     }
+    int lt = k - tm;
+    if (k > cnt && cnt % 2 == 1 && lt > 1)
+    {
+        lt -= 2;
+        int i = 0;
+        while (i < n - 1 && v[i] != 0)
+            i++;
+        ans[i] += 1;
+        ans[n - 1] += 1;
+        for (int i = 0; i < n - 1; i++)
+            v[i] = 1;
+        v[n - 1] = 0;
+    }
+    ans[0] += lt;
+    for (int i = 0; i < n; i++)
+        cout << v[i];
+    cout << endl;
+    for (int i = 0; i < n; i++)
+        cout << ans[i] << " ";
+    cout << endl;
 }
 
 int32_t main()
@@ -108,5 +151,6 @@ int32_t main()
     cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

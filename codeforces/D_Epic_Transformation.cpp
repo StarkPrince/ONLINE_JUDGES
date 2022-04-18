@@ -1,5 +1,5 @@
-// ?Problem : https://codeforces.com/contest/1647/problem/0
-// *Solution : pretty easy question, just start print "21" multiple if n is divisible by 3 else: start with n%3 and alternately add 1 and 2
+// ?problem : https://codeforces.com/problemset/problem/1506/D
+// *Solution : just store the map value in a priority queue and pop the top two elements till they make a pair
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,7 +40,17 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -75,30 +85,34 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
+    int n;
     cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    vector<int> v(n);
+    cinv(v, n);
+    map<int, int> mp;
+    for (auto i : v)
+        mp[i]++;
+    priority_queue<pair<int, int>> pq;
+    for (auto i : mp)
+        pq.push({i.second, i.first});
+    int sz = n;
+    while (pq.size() >= 2)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        auto a = pq.top();
+        pq.pop();
+        auto b = pq.top();
+        pq.pop();
+        int cnt1 = a.first, x1 = a.second;
+        int cnt2 = b.first, x2 = b.second;
+        sz -= 2;
+        cnt1--;
+        cnt2--;
+        if (cnt1)
+            pq.push({cnt1, x1});
+        if (cnt2)
+            pq.push({cnt2, x2});
     }
-    else
-    {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
-        {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
-        }
-        print(ans);
-    }
+    print(sz);
 }
 
 int32_t main()
@@ -108,5 +122,6 @@ int32_t main()
     cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

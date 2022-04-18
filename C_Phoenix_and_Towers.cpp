@@ -1,6 +1,3 @@
-// ?Problem : https://codeforces.com/contest/1647/problem/0
-// *Solution : pretty easy question, just start print "21" multiple if n is divisible by 3 else: start with n%3 and alternately add 1 and 2
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -40,7 +37,17 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -75,30 +82,23 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    int n, m, x;
+    cin >> n >> m >> x;
+    vector<int> v(n);
+    cinv(v, n);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    for (int i = 0; i < m; i++)
+        pq.push({0, i + 1});
+    vector<int> ans(n);
+    for (int i = 0; i < n; i++)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        auto curr = pq.top();
+        pq.pop();
+        ans[i] = curr.second;
+        pq.push({curr.first + v[i], curr.second});
     }
-    else
-    {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
-        {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
-        }
-        print(ans);
-    }
+    print("YES");
+    pv(ans);
 }
 
 int32_t main()
@@ -108,5 +108,6 @@ int32_t main()
     cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

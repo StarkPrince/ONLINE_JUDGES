@@ -1,5 +1,5 @@
-// ?Problem : https://codeforces.com/contest/1647/problem/0
-// *Solution : pretty easy question, just start print "21" multiple if n is divisible by 3 else: start with n%3 and alternately add 1 and 2
+// ?Problem : https://codeforces.com/contest/1659/problem/0
+// *Solution : put the sequence as these , some R and then a B and then some R, get the desired ration for first r%b add 1  more to r/(b+1), and b+1 because there are 1 more r sequence surrounding r
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,7 +40,17 @@ typedef long long ll;
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -75,30 +85,20 @@ ll binpow(ll a, ll b, ll m = 1e18)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll m = n;
-    if (n % 3 == 0)
+    int n, r, b;
+    cin >> n >> r >> b;
+    int mt = r % (b + 1);
+    for (int i = 0; i < b; i++)
     {
-        for (int i = 0; i < n / 3; i++)
-            cout << "21";
-        cout << endl;
+        for (int i = 0; i < r / (b + 1); i++)
+            cout << "R";
+        if (i < mt)
+            cout << "R";
+        cout << "B";
     }
-    else
-    {
-        string ans = "";
-        ll ctr = n % 3;
-        while (n > 0)
-        {
-            ans += to_string(ctr);
-            n -= ctr;
-            if (ctr == 2)
-                ctr = 1;
-            else
-                ctr = 2;
-        }
-        print(ans);
-    }
+    for (int i = 0; i < r / (b + 1); i++)
+        cout << "R";
+    cout << endl;
 }
 
 int32_t main()
@@ -108,5 +108,6 @@ int32_t main()
     cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }
