@@ -1,3 +1,7 @@
+# 
+# ?Problem:  https://codeforces.com/contest/1659/problem/2
+# *Solution: easy peasy greedy question
+
 for _ in range(int(input())):
     n,a,b = [int(x) for x in input().split()]
     v = [int(x) for x in input().split()]

@@ -1,3 +1,6 @@
+// ?Problem :
+// *Solution :
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,11 +28,11 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
@@ -80,42 +80,38 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+void pre()
 {
-    ll n, a, b;
-    cin >> n >> a >> b;
-    vector<ll> v(n + 1, 0);
-    for (int i = 1; i <= n; i++)
-        cin >> v[i];
-    vector<ll> con(n + 1, 0);
-    for (int i = 1; i <= n; i++)
-        con[i] = ((b * (v[i] - 0)));
-    for (int i = n - 1; i >= 0; i--)
-        con[i] += con[i + 1];
-    pv(v);
-    pv(con);
-    ll cost = 0;
-    ll val = 0;
-    ll ans = 1e18;
-    for (int i = 0; i < n; i++)
-    {
-        cost = v[i] * a;
-        if (i != 0)
-            val += ((v[i] - v[i - 1]) * b);
-        cost += val;
-        ll rem = n - i;
-        rem *= (v[i] * b);
-        cost += (con[i + 1] - rem);
-
-        ans = min(ans, cost);
-    }
-    cout << ans << endl;
     return;
 }
 
-int32_t main()
+void solve()
 {
+    string str, tar;
+    cin >> str >> tar;
+    bool works = 0;
+    int n = str.size();
 
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = i; j < n; ++j)
+        {
+            string off = "";
+            for (int x = i; x < j; ++x)
+                off.push_back(str[x]);
+            for (int x = j; x >= 0 && off.size() < tar.size(); --x)
+                off.push_back(str[x]);
+            if (off == tar)
+                works = 1;
+        }
+    }
+    cout << (works ? "YES\n" : "NO\n");
+}
+
+signed main()
+{
+    fast_io;
+    pre();
     int tc = 1;
     cin >> tc;
     while (tc--)
