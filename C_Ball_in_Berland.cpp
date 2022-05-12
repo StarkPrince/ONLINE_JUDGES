@@ -87,19 +87,19 @@ void pre()
 
 void solve()
 {
-    long double r, a, b;
-    cin >> r >> a >> b;
-    x
-}
+    int a, b, k;
+    cin >> a >> b >> k;
+    vector<int> v(a);
+    cinv(v, a);
 
-signed main()
-{
-    fast_io;
-    pre();
-    int tc = 1;
-    cin >> tc;
-    while (tc--)
-        solve();
-    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
-    return 0;
-}
+    signed main()
+    {
+        fast_io;
+        pre();
+        int tc = 1;
+        cin >> tc;
+        while (tc--)
+            solve();
+        cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
+        return 0;
+    }

@@ -89,27 +89,19 @@ void solve()
 {
     string s;
     cin >> s;
-    int n = s.size();
-    int last = -1, st = 0;
-    char c = '?';
-    long long ans = 0;
-    for (int i = 0; i < n; ++i)
+    int ans = 0;
+    int ans2 = 0;
+    for (auto i : s)
+        ans += 1 + i - 'a';
+    if (s.size() % 2 == 1)
     {
-        if (s[i] != c && c != '?' && s[i] != '?')
-            st = last + 1, c = s[i];
-        if (c == '?')
-            c = s[i];
-        ans += (i - st + 1);
-        if (s[i] != '?')
-            last = i;
-        if (c == '0')
-            c = '1';
-        else if (c == '1')
-            c = '0';
-        else
-            c = '?';
+        ans -= 1 + min(s[0], s[s.size() - 1]) - 'a';
+        ans2 += 1 + min(s[0], s[s.size() - 1]) - 'a';
     }
-    cout << ans << "\n";
+    if (ans > ans2)
+        cout << "Alice " << ans - ans2 << endl;
+    else
+        cout << "Bob " << ans2 - ans << endl;
 }
 
 signed main()

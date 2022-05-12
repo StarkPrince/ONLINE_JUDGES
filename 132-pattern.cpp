@@ -85,39 +85,35 @@ void pre()
     return;
 }
 
-void solve()
+bool find132pattern(vector<int> &nums)
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    int last = -1, st = 0;
-    char c = '?';
-    long long ans = 0;
-    for (int i = 0; i < n; ++i)
+    int n = nums.size();
+    int top = n, third = -1e9;
+    for (int i = n - 1; i >= 0; i--)
     {
-        if (s[i] != c && c != '?' && s[i] != '?')
-            st = last + 1, c = s[i];
-        if (c == '?')
-            c = s[i];
-        ans += (i - st + 1);
-        if (s[i] != '?')
-            last = i;
-        if (c == '0')
-            c = '1';
-        else if (c == '1')
-            c = '0';
-        else
-            c = '?';
+        if (nums[i] < third)
+            return true;
+        while (top < n && nums[i] > nums[top])
+            third = nums[top++];
+        nums[--top] = nums[i];
     }
-    cout << ans << "\n";
+    return false;
 }
 
+void solve()
+{
+    int n;
+    cin >> n;
+    vector<int> nums(n);
+    cinv(nums, n);
+    cout << maxSubArray(nums) << endl;
+}
 signed main()
 {
     fast_io;
     pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

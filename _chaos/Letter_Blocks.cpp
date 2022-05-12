@@ -87,29 +87,40 @@ void pre()
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    int last = -1, st = 0;
-    char c = '?';
-    long long ans = 0;
-    for (int i = 0; i < n; ++i)
+    int n;
+    cin >> n;
+    vector<string> s(n);
+    cinv(s, n);
+    sort(all(s));
+    string ans = "";
+    for (string i : s)
     {
-        if (s[i] != c && c != '?' && s[i] != '?')
-            st = last + 1, c = s[i];
-        if (c == '?')
-            c = s[i];
-        ans += (i - st + 1);
-        if (s[i] != '?')
-            last = i;
-        if (c == '0')
-            c = '1';
-        else if (c == '1')
-            c = '0';
-        else
-            c = '?';
+        ans += i;
     }
-    cout << ans << "\n";
+    set<char> st;
+    int i = 0;
+    char ls = "";
+    bool flag = true;
+    while (i < ans.size())
+    {
+        if (ans[i] == ls)
+            i += 1;
+        else if (st.find(ans[i]) == st.end())
+        {
+            st.insert(ans[i]);
+            i += 1;
+        }
+        else
+        {
+            bl = false;
+            break;
+        }
+        ls = ans[i];
+    }
+    if (flag)
+        cout << ans << endl;
+    else
+        cout << "NO" << endl;
 }
 
 signed main()

@@ -85,78 +85,34 @@ void pre()
     return;
 }
 
-int cnt = 1;
+int canCompleteCircuit(const vector<int> &gas, const vector<int> &cost)
+{
+    int fuel = 0, start_i = 0, sum = 0;
+
+    for (int i = 0; i < gas.size(); i++)
+    {
+        sum = sum + (gas[i] - cost[i]);
+        fuel = fuel + (gas[i] - cost[i]);
+        if (fuel < 0)
+        {
+            fuel = 0;
+            start_i = i + 1;
+        }
+    }
+
+    if (sum >= 0)
+        return start_i % (gas.size());
+    return -1;
+}
 
 void solve()
 {
-    ll r, c;
-    cin >> r >> c;
-    vector<vector<ll>> vect(2 * r, vector<ll>(2 * c, 0));
-    for (int i = 0; i < r; i++)
-    {
-        for (int j = 0; j < c; j++)
-        {
-            char d;
-            cin >> d;
-            if (d == '#')
-            {
-                vect[2 * i][2 * j] = 1;
-                vect[2 * i + 1][2 * j] = 1;
-                vect[2 * i][2 * j + 1] = 1;
-                vect[2 * i + 1][2 * j + 1] = 1;
-            }
-        }
-    }
-
-    string answer = "S";
-    r *= 2;
-    c *= 2;
-    ll ceramic = 1, clan_caste = 0;
-    vect[0][0] = 0;
-    vect[1][0] = 1;
-    vector<ll> ravi = {0, 1, 0, -1};
-    vector<ll> royal_champ = {-1, 0, +1, 0};
-    while (ceramic != 0 || clan_caste != 0)
-    {
-        // cout<<ceramic<<" "<<clan_caste<<endl;
-        if (ceramic + ravi[0] < r && ceramic + ravi[0] >= 0 && clan_caste + royal_champ[0] < c && clan_caste + royal_champ[0] >= 0 && vect[ceramic + ravi[0]][clan_caste + royal_champ[0]] != 1)
-        {
-            answer += 'W';
-
-            vect[ceramic + ravi[0]][clan_caste + royal_champ[0]] = 1;
-            ceramic += ravi[0];
-            clan_caste += royal_champ[0];
-        }
-        else if (ceramic + ravi[1] < r && ceramic + ravi[1] >= 0 && clan_caste + royal_champ[1] < c && clan_caste + royal_champ[1] >= 0 && vect[ceramic + ravi[1]][clan_caste + royal_champ[1]] != 1)
-        {
-            answer += 'S';
-
-            vect[ceramic + ravi[1]][clan_caste + royal_champ[1]] = 1;
-            ceramic += ravi[1];
-            clan_caste += royal_champ[1];
-        }
-        else if (ceramic + ravi[2] < r && ceramic + ravi[2] >= 0 && clan_caste + royal_champ[2] < c && clan_caste + royal_champ[2] >= 0 && vect[ceramic + ravi[2]][clan_caste + royal_champ[2]] != 1)
-        {
-            answer += 'E';
-
-            vect[ceramic + ravi[2]][clan_caste + royal_champ[2]] = 1;
-            ceramic += ravi[2];
-            clan_caste += royal_champ[2];
-        }
-        else if (ceramic + ravi[3] < r && ceramic + ravi[3] >= 0 && clan_caste + royal_champ[3] < c && clan_caste + royal_champ[3] >= 0 && vect[ceramic + ravi[3]][clan_caste + royal_champ[3]] != 1)
-        {
-            answer += 'N';
-
-            vect[ceramic + ravi[3]][clan_caste + royal_champ[3]] = 1;
-            ceramic += ravi[3];
-            clan_caste += royal_champ[3];
-        }
-        else
-            break;
-    }
-    cout << "Case #" << cnt << ":"
-         << " " << answer << endl;
-    cnt++;
+    int n;
+    cin >> n;
+    vector<int> A(n), B(n);
+    cinv(A, n);
+    cinv(B, n);
+    cout << canCompleteCircuit(A, B) << endl;
 }
 
 signed main()

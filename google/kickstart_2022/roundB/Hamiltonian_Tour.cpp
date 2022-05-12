@@ -85,31 +85,78 @@ void pre()
     return;
 }
 
+int cnt = 1;
+
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    int last = -1, st = 0;
-    char c = '?';
-    long long ans = 0;
-    for (int i = 0; i < n; ++i)
+    ll r, c;
+    cin >> r >> c;
+    vector<vector<ll>> vect(2 * r, vector<ll>(2 * c, 0));
+    for (int i = 0; i < r; i++)
     {
-        if (s[i] != c && c != '?' && s[i] != '?')
-            st = last + 1, c = s[i];
-        if (c == '?')
-            c = s[i];
-        ans += (i - st + 1);
-        if (s[i] != '?')
-            last = i;
-        if (c == '0')
-            c = '1';
-        else if (c == '1')
-            c = '0';
-        else
-            c = '?';
+        for (int j = 0; j < c; j++)
+        {
+            char d;
+            cin >> d;
+            if (d == '#')
+            {
+                vect[2 * i][2 * j] = 1;
+                vect[2 * i + 1][2 * j] = 1;
+                vect[2 * i][2 * j + 1] = 1;
+                vect[2 * i + 1][2 * j + 1] = 1;
+            }
+        }
     }
-    cout << ans << "\n";
+
+    string answer = "S";
+    r *= 2;
+    c *= 2;
+    ll cr = 1, cc = 0;
+    vect[0][0] = 0;
+    vect[1][0] = 1;
+    vector<ll> rv = {0, 1, 0, -1};
+    vector<ll> rc = {-1, 0, +1, 0};
+    while (cr != 0 || cc != 0)
+    {
+        // cout<<ceramic<<" "<<clan_caste<<endl;
+        if (cr + rv[0] < r && cr + rv[0] >= 0 && cc + rc[0] < c && cc + rc[0] >= 0 && vect[cr + rv[0]][cc + rc[0]] != 1)
+        {
+            answer += 'W';
+
+            vect[cr + rv[0]][cc + rc[0]] = 1;
+            cr += rv[0];
+            cc += rc[0];
+        }
+        else if (cr + rv[1] < r && cr + rv[1] >= 0 && cc + rc[1] < c && cc + rc[1] >= 0 && vect[cr + rv[1]][cc + rc[1]] != 1)
+        {
+            answer += 'S';
+
+            vect[cr + rv[1]][cc + rc[1]] = 1;
+            cr += rv[1];
+            cc += rc[1];
+        }
+        else if (cr + rv[2] < r && cr + rv[2] >= 0 && cc + rc[2] < c && cc + rc[2] >= 0 && vect[cr + rv[2]][cc + rc[2]] != 1)
+        {
+            answer += 'E';
+
+            vect[cr + rv[2]][cc + rc[2]] = 1;
+            cr += rv[2];
+            cc += rc[2];
+        }
+        else if (cr + rv[3] < r && cr + rv[3] >= 0 && cc + rc[3] < c && cc + rc[3] >= 0 && vect[cr + rv[3]][cc + rc[3]] != 1)
+        {
+            answer += 'N';
+
+            vect[cr + rv[3]][cc + rc[3]] = 1;
+            cr += rv[3];
+            cc += rc[3];
+        }
+        else
+            break;
+    }
+    cout << "Case #" << cnt << ":"
+         << " " << answer << endl;
+    cnt++;
 }
 
 signed main()
