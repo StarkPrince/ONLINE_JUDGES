@@ -21,7 +21,8 @@
     "type_traits": "cpp",
     "xlocale": "cpp",
     "list": "cpp",
-    "xmemory": "cpp"
+    "xmemory": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "autopep8",

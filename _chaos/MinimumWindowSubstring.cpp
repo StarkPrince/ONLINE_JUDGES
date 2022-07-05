@@ -1,7 +1,5 @@
-// https://codeforces.com/contest/1649/problem/0
-// fucking retarted mamoth problem setter
-// bitch why do you even set problem if you cant write english properly
-// return the difference between the indicies of left most and rightmost consecutive 1
+// ?Problem :
+// *Solution :
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -16,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -32,18 +27,27 @@ using namespace std;
 #define cinv(v, n)              \
     for (int i = 0; i < n; i++) \
         cin >> v[i];
-
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -56,6 +60,11 @@ typedef long long ll;
 #define len(p) (ll) p.size()
 
 ///////////////////////////////////////////////////
+
+ll handle_mod(ll n, ll mod = MOD)
+{
+    return (n < 0 ? mod - abs(n % mod) : n) % mod;
+}
 
 ll binpow(ll a, ll b, ll m = 1e18)
 {
@@ -71,32 +80,57 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+void pre()
 {
-    int n, ans = 0, last = 1;
-    cin >> n;
-    vector<int> v(n + 1);
-    for (int i = 1; i <= n; i++)
-        cin >> v[i];
-    int x = 1, y = n;
-    while (x < n && v[x + 1] == 1)
-        x++;
-    while (y > 1 && v[y - 1] == 1)
-        y--;
-    if (x == n)
-        print(0);
-    else
-        print(y - x);
+    return;
 }
 
-int32_t main()
+string minWindow(string s, string t)
 {
-
-    int tc = 1;
-    cin >> tc;
-    while (tc--)
+    int m = s.size(), n = t.size();
+    unordered_map<char, int> mp;
+    for (auto c : t)
+        mp[c]++;
+    int i = 0, j = 0, start = 0, cnt = mp.size(), ans = inf;
+    while (j < s.length())
     {
-        solve();
+        mp[s[j]]--;
+        if (mp[s[j]] == 0)
+            cnt--;
+        if (cnt == 0)
+        {
+            while (cnt == 0)
+            {
+                if (ans > j - i + 1)
+                {
+                    ans = j - i + 1;
+                    start = i;
+                }
+                mp[s[i]]++;
+                if (mp[s[i]] > 0)
+                    cnt++;
+                i++;
+            }
+        }
+        j++;
     }
+}
+
+void solve()
+{
+    string s, t;
+    cin >> s >> t;
+    cout << minWindow(s, t) << endl;
+}
+
+signed main()
+{
+    fast_io;
+    pre();
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+        solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

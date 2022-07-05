@@ -1,5 +1,5 @@
-// ?Problem : https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1994
-// *Solution : tried
+// ?Problem :
+// *Solution :
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,25 +87,19 @@ void pre()
 
 void solve()
 {
-    while (true)
+    string s;
+    cin >> s;
+    int n = s.size();
+    vector<int> ans(n, 0);
+    for (int i = 1; i < n; i++)
     {
-        int n, a, b, ct = 0;
-        cin >> n;
-        if (n == 0)
-            break;
-        cin >> a >> b;
-        set<int> st;
-        while (true)
+        if (s[i] == 'a')
         {
-            cout << ct << " ";
-            if (st.find(ct) != st.end())
-                break;
-            st.insert(ct);
-            ct = (a * ct * ct) + b;
-            ct %= n;
+            ans[i - 1] = 1 - ans[i - 1];
+            ans[i] = 1;
         }
-        print(n - len(st));
     }
+    pv(ans);
 }
 
 signed main()
