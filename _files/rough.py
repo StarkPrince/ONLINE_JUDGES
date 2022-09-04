@@ -1570,6 +1570,7 @@ for job in txt1.split("[11:06 pm, 12/06/2022] Sangram:"):
             jb[1]["Link"] = enu[1]
     jobs.append(jb)
 
+# nothing serious
 # with open("jobs.txt", "r") as f:
 #     for job in jobs:
 #         for k, v in job[1].items():

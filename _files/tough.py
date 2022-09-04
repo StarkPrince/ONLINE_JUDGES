@@ -15,6 +15,7 @@ def main():
     if not os.path.isfile(tweet_file):
         print("Error: file not found")
         sys.exit(1)
+# hello
     # open the file
     with open(tweet_file, 'r') as f:
         # read the file
