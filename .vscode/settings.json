@@ -26,7 +26,9 @@
     "system_error": "cpp",
     "atomic": "cpp",
     "ios": "cpp",
-    "xiosbase": "cpp"
+    "xiosbase": "cpp",
+    "shoppinglist.h": "c",
+    "chrono": "c"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "black",

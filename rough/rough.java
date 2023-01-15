@@ -1,38 +1,23 @@
-// # Suppose you are given an array of integers called data. Suppose we would like to be able to know the number of times that each number in the array appears in the array. So, for example, suppose that the number 7 is repeated 11 times in the array. Then we would like to be able to always access the fact that 7 has a frequency of 11 in our array.
-
-// # a) Which Java data structure would you use for such a task? Explain why it would be helpful?
-
-// # b) Implement a function called computeFrequencies that receives the array as input and returns the data structure that you suggest in part a, with the appropriate values from the array (i.e. with the numbers from the array and their frequencies).
-
-// We would use a HashMap to store the frequency of each number in the array. The key would be the number and the value would be the frequency of that number. This would be helpful because we can use the HashMap to find the frequency of a number in constant time.
+// describe each line of code
+// describe the codes aim
+// the aim of the code is to print the string MIS103***103 and the value of price with 4 decimal places
 
 
-
-// create a hashmap to store the frequency of each number in the array
-public static HashMap<Integer, Integer> computeFrequencies(int[] data) {
-    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-    for (int i = 0; i < data.length; i++) {
-        if (map.containsKey(data[i])) {
-            map.put(data[i], map.get(data[i]) + 1);
-        } else {
-            map.put(data[i], 1);
-        }
-    }
-    return map;
-}
-
-// use the hashmap to find the frequency of a number
-public static int getFrequency(HashMap<Integer, Integer> map, int num) {
-    if (map.containsKey(num)) {
-        return map.get(num);
-    } else {
-        return 0;
-    }
-}
-
-
-steps to solve the problem:
-1. create a hashmap to store the frequency of each number in the array (computeFrequencies) to get the HashMap of frequencies of each number in the array
-2. use the hashmap to find the frequency of a number (getFrequency) to get the frequency of a number in the array
-3. print the frequency of a number in the array (printFrequency) to print the frequency of a number in the array
-4. explain why the HashMap is helpful (explain) to explain why the HashMap is helpful for this problem
+Steps involved to solve the question
+1. create a class called HelloWorld
+2. create a method called main that takes no arguments
+3. create a string variable called name and assign it the value MIS103
+4. print the first 3 characters of the string name
+5. print the string name2
+6. print the last 3 characters of the string name
+7. create a double variable called price and assign it the value of 100/3
+8. print the value of price with 4 decimal places
+9. create an integer variable called i and assign it the value 0
+10. while the value of sum is less than 180 do the following
+11. increment the value of i by 1
+12. subtract the value of i from the value of sum
+13. print the value of i
+14. create an integer variable called n and assign it the value 8
+15. while the value of n is greater than 0 do the following
+16. decrement the value of n by 1
+17. print the value of n

@@ -1,40 +1,52 @@
-#include <bits/stdc++.h>
+// Write a program that uses cout and cin to interactively request the following information:
+
+// • A car make (e.g. Nissan)
+// • A car model (e.g. Altima)
+// • A car's year
+// • A car's cost
+
+// Output/Input:
+
+// Make: Nissan
+// Model: Altima
+// Year: 2023
+// Cost($): 30000
+// After obtaining the above information the program should display the following summary:
+
+// Output:
+
+// Your new Nissan Altima (2023) costs $30000.
+
+// Then, determine and output the integer representation of the each character in “Programming Workshop”. Please include the output of your program as a comment at the top of your source file.
+
+#include <iostream>
 using namespace std;
 
-// Function to print the array
-signed main()
+int main()
 {
-    // for loop which starts at -9 and ends at -10 (not inclusive) and decrements by 1
-    for (int num1 = -9; num1 > -10; num1 -= 1)
+    string make, model;
+    int year, cost;
+
+    cout << "Make: ";
+    cin >> make;
+
+    cout << "Model: ";
+    cin >> model;
+
+    cout << "Year: ";
+    cin >> year;
+
+    cout << "Cost($): ";
+    cin >> cost;
+
+    cout << "Your new " << make << " " << model << " (" << year << ") costs $" << cost << "." << endl;
+
+    cout << "Integer representation of each character in 'Programming Workshop':" << endl;
+    string str = "Programming Workshop";
+    for (int i = 0; i < str.length(); i++)
     {
-        cout << "Hello" << endl;
-        // for loop which starts at 12 and ends at 12 (not inclusive) and decrements by 1
-        for (int num2 = 12; num2 > 12; num2 -= 1)
-        {
-            cout << "there!" << endl;
-        }
+        cout << str[i] << ": " << (int)str[i] << endl;
     }
-    // this is going to be printed once
-    cout << "Done!";
+
     return 0;
 }
-
-// what would be the output of this program and why?
-// a) Hello
-//    Done!
-// b) Hello
-//    there!
-//    Done!
-// c) Hello
-//    there!
-//    there!
-//    Done!
-// d) Hello
-//    there!
-//    there!
-
-// Answer: a)
-
-// Explanation: The first for loop is never going to be executed because the condition num1 > -10 is never going to be true. The second for loop is also never going to be executed because the condition num2 > 12 is never going to be true. The program will print "Hello" once and then print "Done!" once.
-
-steps to solve this problem : 1. Read the question carefully 2. Write the code 3. Run the code 4. Check the output 5. Explain the output
