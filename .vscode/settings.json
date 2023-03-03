@@ -25,7 +25,7 @@
     "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
-  "python.formatting.provider": "autopep8",
+  "python.formatting.provider": "black",
   "clockify.tracking.workspaceId": "5fbf3ad85cfedf162875e305",
   "customElementScanner.mode": "manual"
 }
