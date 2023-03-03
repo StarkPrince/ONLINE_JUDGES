@@ -1,0 +1,1 @@
+Let x  i ​  =−1+2i/n and y  i ​  =1/(1+25x  i 2 ​  ),i=0,1,2,…,n . Solve the least squares problem for the cases m=10,n=10 and m=20 and n=80 using singular value decomposition. Plot the two obtained polynomials in the same graphic. Also plot the target function y=1/(1+25x  2  ) . Add labels that explain the figure.

@@ -22,7 +22,14 @@
     "xlocale": "cpp",
     "list": "cpp",
     "xmemory": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "system_error": "cpp",
+    "atomic": "cpp",
+    "ios": "cpp",
+    "xiosbase": "cpp",
+    "shoppinglist.h": "c",
+    "chrono": "c",
+    "future": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "black",
