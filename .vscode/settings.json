@@ -28,7 +28,8 @@
     "ios": "cpp",
     "xiosbase": "cpp",
     "shoppinglist.h": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "future": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "black",
