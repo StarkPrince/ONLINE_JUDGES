@@ -1,3 +1,6 @@
+// ?Problem :
+// *Solution :
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,16 +28,26 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -70,65 +80,33 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+void pre()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<ll> nums(n);
-    cinv(nums, n);
-    // multiset<ll> s;
-    // for (int i = 0; i < k; i++)
-    //     s.insert(a[i]);
-    // // print max element of multiset s
-    // for (int i = 0; i < n - k; i++)
-    // {
-    //     cout << *s.rbegin() << ' ';
-    //     s.erase(s.find(a[i]));
-    //     s.insert(a[i + k]);
-    // }
-    // cout << *s.rbegin() << endl;
-    vector<int> res;
-
-    int left[n];
-    int right[n];
-
-    left[0] = nums[0];
-    right[n - 1] = nums[n - 1];
-
-    for (int i = 0; i < n; i++)
-    {
-        if (i % k == 0)
-            left[i] = nums[i];
-        else
-            left[i] = max(nums[i], left[i - 1]);
-    }
-
-    for (int i = n - 2; i >= 0; i--)
-    {
-        if (i % k == 0)
-            right[i] = nums[i];
-        else
-            right[i] = max(nums[i], right[i + 1]);
-    }
-    // print left array
-    for (int i = 0; i < n; i++)
-        cout << left[i] << ' ';
-    cout << endl;
-    // print right array
-    for (int i = 0; i < n; i++)
-        cout << right[i] << ' ';
-    cout << endl;
-    // for (int i = 0; i <= n - k; i++)
-    //     res.push_back(max(right[i], left[i + k - 1]));
-    // return res;
+    return;
 }
 
-int32_t main()
+void solve()
 {
+    ll n;
+    cin >> n;
+    ll sm = n * (n + 1) / 2;
+    for (int i = 0; i < n - 1; i++)
+    {
+        int x;
+        cin >> x;
+        sm -= x;
+    }
+    cout << sm << endl;
+}
 
+signed main()
+{
+    fast_io;
+    pre();
     int tc = 1;
     // cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

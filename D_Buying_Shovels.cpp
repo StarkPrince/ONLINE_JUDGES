@@ -87,24 +87,28 @@ void pre()
 
 void solve()
 {
-    // take the prefix sum of the given vector
-    int n, s;
-    cin >> n >> s;
-    vector<int> v(n);
-    cinv(v, n);
-    vector<int> pref(n + 1, 0);
-    for (int i = 0; i < n; i++)
-        pref[i + 1] = pref[i] + v[i];
-    map<int, int> m;
-    for (int i = 0; i < n + 1; i++)
+    ll n, k;
+    cin >> n >> k;
+    // get all factors of n
+    vector<ll> factors;
+    for (ll i = 1; i * i <= n; i++)
     {
-        pref[i] -= i * s;
-        m[pref[i]]++;
+        if (n % i == 0)
+        {
+            factors.pb(i);
+            if (i != n / i)
+                factors.pb(n / i);
+        }
     }
-    int ans = 0;
-    for (auto i : m)
-        ans += i.second * (i.second - 1) / 2;
-    cout << ans << endl;
+    sort(all(factors));
+    // get the factors which is just less or equal to k
+    ll ans = 0;
+    for (auto i : factors)
+    {
+        if (i <= k)
+            ans = i;
+    }
+    cout << n / ans << endl;
 }
 
 signed main()
@@ -112,7 +116,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

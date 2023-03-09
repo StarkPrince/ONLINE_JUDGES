@@ -1,3 +1,6 @@
+// ?Problem : https://cses.fi/problemset/task/1068
+// *Solution : just do what question is asking
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,16 +28,26 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -50,6 +60,11 @@ typedef long long ll;
 #define len(p) (ll) p.size()
 
 ///////////////////////////////////////////////////
+
+ll handle_mod(ll n, ll mod = MOD)
+{
+    return (n < 0 ? mod - abs(n % mod) : n) % mod;
+}
 
 ll binpow(ll a, ll b, ll m = 1e18)
 {
@@ -65,59 +80,34 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-int minTimeToFinish(priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq, int changeTime, int numLaps)
+void pre()
 {
-    if (numLaps == 0)
-        return 0;
-    int time = inf;
-    // create tq which is a clone of pq
-    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> tq = pq;
-
-    vector<int> p = pq.top();
-    vector<int> t = tq.top();
-    pq.pop();
-    tq.pop();
-
-    // case 1 : change the tyre of the fastest car and race it
-    t[0] = t[2];
-    tq.push(t);
-    time = min(time, changeTime + t[0] + minTimeToFinish(tq, changeTime, numLaps - 1));
-
-    // case 2 : dont change the tyre but race the fastest car
-    p[0] *= p[1];
-    pq.push(p);
-    time = min(time, p[0] + minTimeToFinish(pq, changeTime, numLaps - 1));
-
-    return time;
+    return;
 }
 
 void solve()
 {
-    ll n, changeTime, numLaps;
-    cin >> n >> changeTime >> numLaps;
-    vector<vector<int>> tires;
-    for (int i = 0; i < n; i++)
+    ll n;
+    cin >> n;
+    while (n != 1)
     {
-        int a, r;
-        cin >> a >> r;
-        tires.pb({a, r, a});
+        cout << n << " ";
+        if (n % 2 == 0)
+            n /= 2;
+        else
+            n = n * 3 + 1;
     }
-    // create a minheap of the tires sorted by the time when they will be finished
-    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
-    for (auto tire : tires)
-        pq.push(tire);
-
-    print(minTimeToFinish(pq, changeTime, numLaps));
+    cout << 1 << endl;
 }
 
-int32_t main()
+signed main()
 {
-
+    fast_io;
+    pre();
     int tc = 1;
     // cin >> tc;
     while (tc--)
-    {
         solve();
-    }
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }
