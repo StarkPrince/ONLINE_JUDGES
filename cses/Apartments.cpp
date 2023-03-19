@@ -1,3 +1,6 @@
+// ?Problem : https://cses.fi/problemset/task/1084
+// *Solution : we first sort both the arrays and then we use two pointers to find the number of pairs that satisfy the condition
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,16 +28,26 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -70,31 +80,46 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+void pre()
 {
-    ll n, x;
-    cin >> n >> x;
-    vector<ll> v(n);
-    cinv(v, n);
-    map<ll, ll> m;
-    for (auto i : v)
-    {
-        m[i]++;
-        m[i - x]++;
-        m[i + x]++;
-    }
-    ll mn = -inf;
-    for (auto i : m)
-        mn = max(mn, i.second);
-    cout << mn << endl;
+    return;
 }
 
-int32_t main()
+void solve()
 {
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<int> a(n), b(m);
+    cinv(a, n);
+    cinv(b, m);
+    sort(all(a));
+    sort(all(b));
+    int ans = 0;
+    int i = 0, j = 0;
+    while (i < n && j < m)
+    {
+        if (abs(a[i] - b[j]) <= k)
+        {
+            ans++;
+            i++;
+            j++;
+        }
+        else if (a[i] - b[j] > k)
+            j++;
+        else
+            i++;
+    }
+    print(ans);
+}
 
+signed main()
+{
+    fast_io;
+    pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

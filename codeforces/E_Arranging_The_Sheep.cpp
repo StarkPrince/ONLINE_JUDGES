@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://codeforces.com/problemset/problem/1520/E
+// *Solution : we will use the concept of prefix sum to solve this problem
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,25 +87,28 @@ void pre()
 
 void solve()
 {
-    string str, tar;
-    cin >> str >> tar;
-    bool works = 0;
-    int n = str.size();
+    ll n;
+    string s;
+    cin >> n;
+    cin >> s;
+    vector<ll> pos;
+    for (int i = 0; i < n; i++)
+        if (s[i] == '*')
+            pos.push_back(i);
 
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = i; j < n; ++j)
-        {
-            string off = "";
-            for (int x = i; x < j; ++x)
-                off.push_back(str[x]);
-            for (int x = j; x >= 0 && off.size() < tar.size(); --x)
-                off.push_back(str[x]);
-            if (off == tar)
-                works = 1;
-        }
-    }
-    cout << (works ? "YES\n" : "NO\n");
+    ll c = pos.size() / 2;
+    vector<ll> pos2 = pos;
+
+    int k = 0;
+    for (int i = c; i < pos.size(); i++)
+        pos2[i] = pos[c] + k, k++;
+    k = 1;
+    for (int i = c - 1; i >= 0; i--)
+        pos2[i] = pos[c] - k, k++;
+    ll ans = 0;
+    for (int i = 0; i < pos.size(); i++)
+        ans += abs(pos2[i] - pos[i]);
+    cout << ans << endl;
 }
 
 signed main()

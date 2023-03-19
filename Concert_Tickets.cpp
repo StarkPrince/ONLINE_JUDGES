@@ -87,34 +87,29 @@ void pre()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    cinv(a, n);
-    ll mn = 1e18;
+    int n, m;
+    cin >> n >> m;
+    multiset<int> h;
     for (int i = 0; i < n; i++)
     {
-        ll ans = 0;
-        int lt = i - 1, rt = i + 1;
-        long double prev = 0;
-        while (lt >= 0)
-        {
-            ll k = (ll)ceil(abs((prev - 1) / (long double)a[lt]));
-            prev = -k * a[lt];
-            ans += k;
-            lt--;
-        }
-        prev = 0;
-        while (rt < n)
-        {
-            ll k = (ll)ceil(abs((prev + 1) / (long double)a[rt]));
-            prev = k * a[rt];
-            ans += k;
-            rt++;
-        }
-        mn = min(mn, ans);
+        int x;
+        cin >> x;
+        h.insert(x);
     }
-    print(mn);
+    for (int i = 0; i < m; i++)
+    {
+        int x;
+        cin >> x;
+        auto it = h.ub(x);
+        if (it == h.begin())
+            cout << -1 << endl;
+        else
+        {
+            it--;
+            cout << *it << endl;
+            h.erase(it);
+        }
+    }
 }
 
 signed main()

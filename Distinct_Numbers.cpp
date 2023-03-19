@@ -1,3 +1,6 @@
+// ?Problem :
+// *Solution :
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,16 +28,26 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -70,27 +80,33 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
-void solve()
+void pre()
 {
-    int n, l, r;
-    cin >> n >> l >> r;
-    vector<int> a(n);
-    cinv(a, n);
-    int ans = 0;
-    sort(all(a));
-    for (int i = 0; i < n - 1; i++)
-    {
-        ans += ub(a.be() + i + 1, a.en(), r - a[i]) - lb(a.be() + i + 1, a.en(), l - a[i]);
-    }
-    cout << ans << endl;
+    return;
 }
 
-int32_t main()
+void solve()
 {
+    int n;
+    cin >> n;
+    set<int> s;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        s.insert(x);
+    }
+    cout << s.size() << endl;
+}
 
+signed main()
+{
+    fast_io;
+    pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
+    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
     return 0;
 }

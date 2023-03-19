@@ -87,19 +87,25 @@ void pre()
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> ans(n, 0);
-    for (int i = 1; i < n; i++)
+    int n, x;
+    cin >> n >> x;
+    vector<int> v(n);
+    cinv(v, n);
+    sort(all(v));
+    int ans = 0;
+    int i = 0, j = n - 1;
+    while (i <= j)
     {
-        if (s[i] == 'a')
+        if (v[i] + v[j] <= x)
         {
-            ans[i - 1] = 1 - ans[i - 1];
-            ans[i] = 1;
+            i++;
+            j--;
         }
+        else
+            j--;
+        ans++;
     }
-    pv(ans);
+    cout << ans << endl;
 }
 
 signed main()

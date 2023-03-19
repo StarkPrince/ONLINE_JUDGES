@@ -1,3 +1,6 @@
+// ?Problem : https://codeforces.com/problemset/problem/1475/C
+// *Solution : we can use binary search to find the answer and we can use a map to store the number of balls of each color
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,14 +14,11 @@ using namespace std;
 ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
 */
 ///////////////////////////////////////////////////
-#define fast_io                            \
-    ios::sync_with_stdio(false);           \
-    cin.tie(0);                            \
-    cout.tie(0);                           \
-#define file_io                        \
-        freopen('input.txt', 'r+', stdin); \
-    freopen('output.txt', 'w+', stdout);
-
+#define fast_io                  \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);                 \
+    cout << fixed << setprecision(9);
 ///////////////////////////////////////////////////
 #define pv(v)             \
     for (auto i : v)      \
@@ -28,16 +28,26 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
 #define inf 0x3f3f3f3f
-#define minf -0x3f3f3f3f
 
 ///////////////////////////////////////////////////
 #define mem(a, t) memset(a, t, sizeof(a))
 #define endl '\n'
-#define print(x) cout << x << endl
+template <typename T>
+void print(T &&t)
+{
+    cout << t << '\n';
+}
+template <typename T, typename... Args>
+void print(T &&t, Args &&...args)
+{
+    cout << t << ' ';
+    print(forward<Args>(args)...);
+}
 
 ///////////////////////////////////////////////////
 #define pb push_back
@@ -50,6 +60,11 @@ typedef long long ll;
 #define len(p) (ll) p.size()
 
 ///////////////////////////////////////////////////
+
+ll handle_mod(ll n, ll mod = MOD)
+{
+    return (n < 0 ? mod - abs(n % mod) : n) % mod;
+}
 
 ll binpow(ll a, ll b, ll m = 1e18)
 {
@@ -65,23 +80,26 @@ ll binpow(ll a, ll b, ll m = 1e18)
     return res;
 }
 
+void pre()
+{
+    return;
+}
+
 void solve()
 {
-    ll x, a, b, c;
-    cin >> x >> a >> b >> c;
-    vector<ll> v{a, b, c};
-    sort(all(v));
-    print(v[0] * (x - 1) + v[1]);
-}
+    int a, b, k;
+    cin >> a >> b >> k;
+    vector<int> v(a);
+    cinv(v, a);
 
-int32_t main()
-{
-
-    int tc = 1;
-    cin >> tc;
-    while (tc--)
+    signed main()
     {
-        solve();
+        fast_io;
+        pre();
+        int tc = 1;
+        cin >> tc;
+        while (tc--)
+            solve();
+        cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
+        return 0;
     }
-    return 0;
-}

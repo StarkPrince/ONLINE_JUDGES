@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://cses.fi/problemset/task/1094
+// *Solution : we just need to find the difference between the current element and the previous element and add it to the answer
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,24 +87,20 @@ void pre()
 
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vector<int> v(n, 1);
-    if (n % 2 == 0)
+    vector<ll> v(n);
+    cinv(v, n);
+    ll ans = 0;
+    for (int i = 1; i < n; i++)
     {
-        for (int i = 0; i < n / 2; i++)
-            v[2 * i] = 2 * i + 2;
-        for (int i = 0; i < n / 2; i++)
-            v[2 * i + 1] = 2 * i + 1;
+        if (v[i] < v[i - 1])
+        {
+            ans += v[i - 1] - v[i];
+            v[i] = v[i - 1];
+        }
     }
-    else
-    {
-        for (int i = 0; i < n / 2; i++)
-            v[2 * i + 2] = 2 * (i + 1);
-        for (int i = 0; i < n / 2; i++)
-            v[2 * i + 1] = 2 * i + 3;
-    }
-    pv(v);
+    cout << ans << endl;
 }
 
 signed main()
@@ -112,7 +108,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
