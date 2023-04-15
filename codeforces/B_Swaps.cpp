@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://codeforces.com/problemset/problem/1573/B
+// *Solution : we took the suffix minima of the index of all the elements sorted in increasing order so that we will get the value of element which is larger than the current element and is closest to origin.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,35 +87,34 @@ void pre()
 
 void solve()
 {
-    int n;
+    int n, ans = 1e9;
     cin >> n;
-    vector<int> v(n);
-    cinv(v, n);
-    // copy that into a new vector
-    vector<int> v2 = v;
-    // sort the new vector
-    sort(all(v2), greater<int>());
-    // initiate two pointers to 0
-    int i = 0, j = 0;
-    vector<int> ans;
-    while (i < n)
+    vector<pair<int, int>> a(n), b(n);
+    for (int i = 0; i < n; i++)
     {
-        // if the element at i is equal to the element at j
-        if (v[i] == v2[j])
-        {
-            ans.pb(v[i] + 1
-
-            );
-            i++;
-            j++;
-        }
-        else
-        {
-            i++;
-        }
+        cin >> a[i].first;
+        a[i].second = i;
     }
-    print(len(ans));
-    pv(ans);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i].first;
+        b[i].second = i;
+    }
+    sort(all(a));
+    sort(all(b));
+    vector<int> c(n), d(n);
+    for (int i = 0; i < n; i++)
+    {
+        c[i] = a[i].second;
+        d[i] = b[i].second;
+    }
+    vector<int> suff_d(n);
+    suff_d[n - 1] = d[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+        suff_d[i] = min(suff_d[i + 1], d[i]);
+    for (int i = 0; i < n; i++)
+        ans = min(ans, c[i] + suff_d[i]);
+    print(ans);
 }
 
 signed main()
