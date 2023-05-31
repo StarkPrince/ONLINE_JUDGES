@@ -1,4 +1,4 @@
-// ?Problem : https://codeforces.com/contest/1628/problem/A
+// ?Problem :
 // *Solution :
 
 #include <bits/stdc++.h>
@@ -87,43 +87,24 @@ void pre()
 
 void solve()
 {
-    int n, ct = 0;
+    int n;
     cin >> n;
-    vector<int> v(n), v1(n);
-    cinv(v, n);
-    if (n == 1)
+    vector<pair<int, int>> v;
+    for (int i = 0; i < n; i++)
     {
-        print(1);
-        print(0);
-        return;
+        int a, b;
+        cin >> a >> b;
+        v.pb({a, 1});
+        v.pb({b, -1});
     }
-    int mex = 0;
-    vector<int> v2(1e6);
-    for (int i = n - 1; i >= 0; i--)
+    sort(all(v));
+    int ans = 0, cnt = 0;
+    for (auto i : v)
     {
-        v2[v[i]]++;
-        while (v2[mex])
-            mex++;
-        v1[i] = mex;
+        cnt += i.second;
+        ans = max(ans, cnt);
     }
-    set<int> s;
-    for (int i = 0; i < v1[0]; i++)
-        s.insert(i);
-    vector<int> ans{v1[0]};
-    while (ct < n)
-    {
-        if (s.empty())
-        {
-            ans.pb(v1[ct]);
-            for (int j = 0; j < v1[ct]; j++)
-                s.insert(j);
-        }
-        if (s.find(v[ct]) != s.end())
-            s.erase(v[ct]);
-        ct++;
-    }
-    print(len(ans));
-    pv(ans);
+    print(ans);
 }
 
 signed main()
@@ -131,7 +112,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

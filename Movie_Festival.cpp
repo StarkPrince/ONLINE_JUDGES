@@ -1,4 +1,4 @@
-// ?Problem : https://codeforces.com/contest/1628/problem/A
+// ?Problem :
 // *Solution :
 
 #include <bits/stdc++.h>
@@ -87,43 +87,24 @@ void pre()
 
 void solve()
 {
-    int n, ct = 0;
+    int n;
     cin >> n;
-    vector<int> v(n), v1(n);
-    cinv(v, n);
-    if (n == 1)
+    vector<pair<int, int>> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i].first >> v[i].second;
+    sort(all(v), [](pair<int, int> a, pair<int, int> b)
+         { return a.second < b.second; });
+    int ans = 0;
+    int last = 0;
+    for (int i = 0; i < n; i++)
     {
-        print(1);
-        print(0);
-        return;
-    }
-    int mex = 0;
-    vector<int> v2(1e6);
-    for (int i = n - 1; i >= 0; i--)
-    {
-        v2[v[i]]++;
-        while (v2[mex])
-            mex++;
-        v1[i] = mex;
-    }
-    set<int> s;
-    for (int i = 0; i < v1[0]; i++)
-        s.insert(i);
-    vector<int> ans{v1[0]};
-    while (ct < n)
-    {
-        if (s.empty())
+        if (v[i].first >= last)
         {
-            ans.pb(v1[ct]);
-            for (int j = 0; j < v1[ct]; j++)
-                s.insert(j);
+            ans++;
+            last = v[i].second;
         }
-        if (s.find(v[ct]) != s.end())
-            s.erase(v[ct]);
-        ct++;
     }
-    print(len(ans));
-    pv(ans);
+    print(ans);
 }
 
 signed main()
@@ -131,7 +112,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

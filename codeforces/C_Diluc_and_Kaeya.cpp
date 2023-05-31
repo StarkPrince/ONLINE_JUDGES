@@ -1,4 +1,4 @@
-// ?Problem : https://codeforces.com/contest/1628/problem/A
+// ?Problem :
 // *Solution :
 
 #include <bits/stdc++.h>
@@ -87,43 +87,30 @@ void pre()
 
 void solve()
 {
-    int n, ct = 0;
+    int n;
+    double d = 0, k = 0;
     cin >> n;
-    vector<int> v(n), v1(n);
-    cinv(v, n);
-    if (n == 1)
+    vector<double> a(n);
+    string s;
+    cin >> s;
+    for (int i = 0; i < n; i++)
     {
-        print(1);
-        print(0);
-        return;
+        if (s[i] == 'D')
+            d++;
+        else
+            k++;
+        if (k == 0)
+            a[i] = -1;
+        else
+            a[i] = d / k;
     }
-    int mex = 0;
-    vector<int> v2(1e6);
-    for (int i = n - 1; i >= 0; i--)
+    map<double, int> mp;
+    for (auto i : a)
     {
-        v2[v[i]]++;
-        while (v2[mex])
-            mex++;
-        v1[i] = mex;
+        mp[i]++;
+        cout << mp[i] << " ";
     }
-    set<int> s;
-    for (int i = 0; i < v1[0]; i++)
-        s.insert(i);
-    vector<int> ans{v1[0]};
-    while (ct < n)
-    {
-        if (s.empty())
-        {
-            ans.pb(v1[ct]);
-            for (int j = 0; j < v1[ct]; j++)
-                s.insert(j);
-        }
-        if (s.find(v[ct]) != s.end())
-            s.erase(v[ct]);
-        ct++;
-    }
-    print(len(ans));
-    pv(ans);
+    cout << endl;
 }
 
 signed main()
@@ -132,6 +119,7 @@ signed main()
     pre();
     int tc = 1;
     cin >> tc;
+    cout << setprecision(18);
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

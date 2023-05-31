@@ -1,5 +1,5 @@
-// ?Problem : https://codeforces.com/contest/1628/problem/A
-// *Solution :
+// ?Problem : https://codeforces.com/problemset/problem/1573/B
+// *Solution : we took the suffix minima of the index of all the elements sorted in increasing order so that we will get the value of element which is larger than the current element and is closest to origin.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,43 +87,34 @@ void pre()
 
 void solve()
 {
-    int n, ct = 0;
+    int n, ans = 1e9;
     cin >> n;
-    vector<int> v(n), v1(n);
-    cinv(v, n);
-    if (n == 1)
+    vector<pair<int, int>> a(n), b(n);
+    for (int i = 0; i < n; i++)
     {
-        print(1);
-        print(0);
-        return;
+        cin >> a[i].first;
+        a[i].second = i;
     }
-    int mex = 0;
-    vector<int> v2(1e6);
-    for (int i = n - 1; i >= 0; i--)
+    for (int i = 0; i < n; i++)
     {
-        v2[v[i]]++;
-        while (v2[mex])
-            mex++;
-        v1[i] = mex;
+        cin >> b[i].first;
+        b[i].second = i;
     }
-    set<int> s;
-    for (int i = 0; i < v1[0]; i++)
-        s.insert(i);
-    vector<int> ans{v1[0]};
-    while (ct < n)
+    sort(all(a));
+    sort(all(b));
+    vector<int> c(n), d(n);
+    for (int i = 0; i < n; i++)
     {
-        if (s.empty())
-        {
-            ans.pb(v1[ct]);
-            for (int j = 0; j < v1[ct]; j++)
-                s.insert(j);
-        }
-        if (s.find(v[ct]) != s.end())
-            s.erase(v[ct]);
-        ct++;
+        c[i] = a[i].second;
+        d[i] = b[i].second;
     }
-    print(len(ans));
-    pv(ans);
+    vector<int> suff_d(n);
+    suff_d[n - 1] = d[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+        suff_d[i] = min(suff_d[i + 1], d[i]);
+    for (int i = 0; i < n; i++)
+        ans = min(ans, c[i] + suff_d[i]);
+    print(ans);
 }
 
 signed main()

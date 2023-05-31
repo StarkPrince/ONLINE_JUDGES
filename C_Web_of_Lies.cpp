@@ -1,4 +1,4 @@
-// ?Problem : https://codeforces.com/contest/1628/problem/A
+// ?Problem :
 // *Solution :
 
 #include <bits/stdc++.h>
@@ -87,43 +87,46 @@ void pre()
 
 void solve()
 {
-    int n, ct = 0;
-    cin >> n;
-    vector<int> v(n), v1(n);
-    cinv(v, n);
-    if (n == 1)
+    int n, m, u, v, x, q;
+    cin >> n >> m;
+    vector<int> degree(n + 1);
+    set<int> alive;
+    for (int i = 1; i <= n; i++)
+        alive.insert(i);
+    vector<set<int>> adj(n + 1);
+    for (int i = 0; i < m; i++)
     {
-        print(1);
-        print(0);
-        return;
+        cin >> u >> v;
+        degree[u]++;
+        degree[v]++;
+        adj[u].insert(v);
+        adj[v].insert(u);
     }
-    int mex = 0;
-    vector<int> v2(1e6);
-    for (int i = n - 1; i >= 0; i--)
+    cin >> q;
+    for (int i = 0; i < q; i++)
     {
-        v2[v[i]]++;
-        while (v2[mex])
-            mex++;
-        v1[i] = mex;
-    }
-    set<int> s;
-    for (int i = 0; i < v1[0]; i++)
-        s.insert(i);
-    vector<int> ans{v1[0]};
-    while (ct < n)
-    {
-        if (s.empty())
+        cin >> x;
+        if (x == 1)
         {
-            ans.pb(v1[ct]);
-            for (int j = 0; j < v1[ct]; j++)
-                s.insert(j);
+            cin >> u >> v;
+            degree[u]++;
+            degree[v]++;
+            adj[u].insert(v);
+            adj[v].insert(u);
         }
-        if (s.find(v[ct]) != s.end())
-            s.erase(v[ct]);
-        ct++;
+        else if (x == 2)
+        {
+            cin >> u >> v;
+            degree[u]--;
+            degree[v]--;
+            adj[u].erase(v);
+            adj[v].erase(u);
+        }
+        else
+        {
+            print(alive.size());
+        }
     }
-    print(len(ans));
-    pv(ans);
 }
 
 signed main()
@@ -131,7 +134,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
