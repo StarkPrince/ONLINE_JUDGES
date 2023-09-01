@@ -32,7 +32,10 @@
     "future": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "none",
   "clockify.tracking.workspaceId": "5fbf3ad85cfedf162875e305",
-  "customElementScanner.mode": "manual"
+  "customElementScanner.mode": "manual",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  }
 }
