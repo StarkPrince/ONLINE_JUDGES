@@ -29,13 +29,12 @@
     "xiosbase": "cpp",
     "shoppinglist.h": "c",
     "chrono": "c",
-    "future": "cpp"
+    "future": "cpp",
+    "compare": "cpp",
+    "xstddef": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
-  "python.formatting.provider": "none",
+  "python.formatting.provider": "black",
   "clockify.tracking.workspaceId": "5fbf3ad85cfedf162875e305",
-  "customElementScanner.mode": "manual",
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8"
-  }
+  "customElementScanner.mode": "manual"
 }
