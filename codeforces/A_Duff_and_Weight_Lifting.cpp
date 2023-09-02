@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://codeforces.com/contest/587/problem/A
+// *Solution : make a cnt array annd add the previous number by taking mod 2 and add the carry to the next number and count the number of 1's in the array
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -28,7 +28,7 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
-const int maxN = 200005;
+const int MAX = 1000100;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
@@ -85,26 +85,24 @@ void pre()
     return;
 }
 
+int a[MAX];
+
 void solve()
 {
-    int n;
+    int n, x, ans = 0;
     cin >> n;
-    int ans = 1;
-    vector<int> v(n + 1, 0);
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (__gcd(i, n) == 1)
-        {
-            v[i] = 1;
-            ans = (ans * i) % n;
-        }
+        cin >> x;
+        a[x]++;
     }
-    if (ans != 1)
-        v[ans] = 0;
-    cout << count(all(v), 1) << endl;
-    for (int i = 1; i <= n; i++)
-        if (v[i])
-            cout << i << ' ';
+    for (int i = 0; i < MAX - 1; i++)
+    {
+        a[i + 1] += a[i] / 2;
+        a[i] %= 2;
+        ans += a[i];
+    }
+    cout << ans << endl;
 }
 
 signed main()

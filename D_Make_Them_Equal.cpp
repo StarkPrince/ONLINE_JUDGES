@@ -85,25 +85,26 @@ void pre()
     return;
 }
 
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+    return a.second > b.second;
+}
+
 void solve()
 {
     int n, k;
     cin >> n >> k;
-    vector<int> a(n);
-    cinv(a, n);
-    sort(all(a));
-    set<int> s;
+    vector<pair<int, int>> bc(n);
     for (int i = 0; i < n; i++)
     {
-        if (a[i] % k == 0)
-        {
-            if (s.find(a[i] / k) == s.end())
-                s.insert(a[i]);
-        }
-        else
-            s.insert(a[i]);
+        int x;
+        cin >> x;
+        bc[i].first = __builtin_popcount(x);
+        cout << bc[i].first << ' ' << x << endl;
     }
-    cout << len(s) << endl;
+    for (int i = 0; i < n; i++)
+        cin >> bc[i].second;
+    sort(all(bc), cmp);
 }
 
 signed main()
@@ -111,7 +112,7 @@ signed main()
     fast_io;
     pre();
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     while (tc--)
         solve();
     cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";

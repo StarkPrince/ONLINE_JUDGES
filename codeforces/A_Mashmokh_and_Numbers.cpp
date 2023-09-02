@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://codeforces.com/contest/414/problem/A
+// *Solution : there can be two answers k-n/2, 2(k-n/2) , 2(k-n/2)+1, 2(k-n/2)+2 and so on or 245678 and so on in first situation would be n and other case it would be n-1
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -28,7 +28,7 @@ using namespace std;
     for (int i = 0; i < n; i++) \
         cin >> v[i];
 //////////////////////////////////////////////////
-const int MAX = 1000100;
+const int maxN = 200005;
 typedef long long ll;
 #define int long long
 #define MOD 1000000007
@@ -84,25 +84,20 @@ void pre()
 {
     return;
 }
-
-int a[MAX];
+#define p(a) std::cout << a << " "
 
 void solve()
 {
-    int n, x, ans = 0;
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    int n, k, a;
+    std::cin >> n >> k;
+    if (k < n / 2 || k && n == 1)
+        p(-1);
+    else
     {
-        cin >> x;
-        a[x]++;
+        p((a = k - n / 2 + 1)), a *= 2, n--;
+        while (n--)
+            p(a++);
     }
-    for (int i = 0; i < MAX - 1; i++)
-    {
-        a[i + 1] += a[i] / 2;
-        a[i] %= 2;
-        ans += a[i];
-    }
-    cout << ans << endl;
 }
 
 signed main()

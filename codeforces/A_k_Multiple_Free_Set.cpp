@@ -1,5 +1,5 @@
-// ?Problem :
-// *Solution :
+// ?Problem : https://codeforces.com/contest/274/problem/A
+// *Solution : dont take the two consecutive multiples of k in the set and keep pushing them in set and print the size of set
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -87,24 +87,23 @@ void pre()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    int ans = 1;
-    vector<int> v(n + 1, 0);
-    for (int i = 1; i < n; i++)
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    cinv(a, n);
+    sort(all(a));
+    set<int> s;
+    for (int i = 0; i < n; i++)
     {
-        if (__gcd(i, n) == 1)
+        if (a[i] % k == 0)
         {
-            v[i] = 1;
-            ans = (ans * i) % n;
+            if (s.find(a[i] / k) == s.end())
+                s.insert(a[i]);
         }
+        else
+            s.insert(a[i]);
     }
-    if (ans != 1)
-        v[ans] = 0;
-    cout << count(all(v), 1) << endl;
-    for (int i = 1; i <= n; i++)
-        if (v[i])
-            cout << i << ' ';
+    cout << len(s) << endl;
 }
 
 signed main()

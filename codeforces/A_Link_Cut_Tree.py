@@ -1,3 +1,7 @@
+
+# ?Problem : https://codeforces.com/contest/614/problem/A
+# *Solution : just check if its crossing the 64 bit limit or not
+
 l, r, k = map(int, input().split())
 ans = 1
 
