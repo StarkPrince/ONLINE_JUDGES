@@ -1,4 +1,4 @@
-// ?Problem :
+// ?Problem : https://codeforces.com/contest/1492/problem/C
 // *Solution :
 
 #include <bits/stdc++.h>
@@ -85,35 +85,20 @@ void pre()
     return;
 }
 
-void solve()
-{
-    int n, m, x;
-    cin >> n >> m;
-    string s, t;
-    cin >> s >> t;
-    int a[m], b[m];
-    x = 0;
-    for (int i = 0; i < n && x < m; ++i)
-        if (s[i] == t[x])
-            a[x++] = i;
-    x = m - 1;
-    for (int i = n - 1; i >= 0 && x >= 0; --i)
-        if (s[i] == t[x])
-            b[x--] = i;
-    x = 0;
-    for (int i = 0; i + 1 < m; ++i)
-        x = max(x, b[i + 1] - a[i]);
-    cout << x;
-}
+#define N 1000005
+int ans, n, m, q[N], h[N];
+string s, t;
 
 signed main()
 {
-    fast_io;
-    pre();
-    int tc = 1;
-    // cin >> tc;
-    while (tc--)
-        solve();
-    cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
-    return 0;
+    cin >> n >> m >> s >> t;
+    for (int i = 0, j = 0; j < m; i++)
+        if (s[i] == t[j])
+            q[j++] = i;
+    for (int i = n - 1, j = m - 1; j >= 0; i--)
+        if (s[i] == t[j])
+            h[j--] = i;
+    for (int i = 0; i < m - 1; i++)
+        ans = max(ans, h[i + 1] - q[i]);
+    cout << ans;
 }
