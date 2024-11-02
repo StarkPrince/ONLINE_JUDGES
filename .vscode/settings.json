@@ -36,5 +36,6 @@
   "C_Cpp.errorSquiggles": "Disabled",
   "python.formatting.provider": "black",
   "clockify.tracking.workspaceId": "5fbf3ad85cfedf162875e305",
-  "customElementScanner.mode": "manual"
+  "customElementScanner.mode": "manual",
+  "C_Cpp.default.compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe"
 }
